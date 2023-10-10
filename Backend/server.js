@@ -38,10 +38,13 @@ app.get('/autocomplete', (req, res) => {
 
 
 app.get('/search', (req, res) => {
-  const { keyword, buyerpostalcode, maxdistance, freeshipping, localpickup, condition } = req.query;
+  const { keyword, buyerpostalcode, maxdistance, freeshipping, localpickup, condition, categoryId } = req.query;
   let apiUrl = `https://svcs.ebay.com/services/search/FindingService/v1?paginationInput.entriesPerPage=50&OPERATION-NAME=findItemsAdvanced&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=${APP_ID}&RESPONSE-DATA-FORMAT=JSON`;
   if (keyword) {
     apiUrl += `&keywords=${encodeURIComponent(keyword)}`;
+  }
+  if (categoryId && categoryId !== '0') {
+    apiUrl += `&categoryId=${encodeURIComponent(categoryId)}`;
   }
   if (buyerpostalcode) {
     apiUrl += `&buyerPostalCode=${encodeURIComponent(buyerpostalcode)}`;
