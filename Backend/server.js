@@ -13,13 +13,16 @@ const client_id = 'RiddhamG-CSCI571A-PRD-472b2ae15-4dc4edc3';
 const client_secret = 'PRD-72b2ae1509dc-c457-4c34-bf06-41f2';
 const oauthToken = new OAuthToken(client_id, client_secret);
 
+const GOOGLE_CSE_API_KEY = 'AIzaSyD-cPzAO31rvcg0pmhAfYEj5FKpWu0kvb0'; // replace with your actual API key
+const GOOGLE_CSE_ID = '2088a7d00683e4899'; // replace with your custom search engine ID
+
 // Autocomplete route
 app.get('/autocomplete', (req, res) => {
     const { zipCode } = req.query;
     // Make a request to the Geonames API for suggestions
     axios
       .get(
-        `https://api.geonames.org/postalCodeSearchJSON?postalcode_startsWith=${zipCode}&maxRows=5&username=riddhamgadia&country=US`
+        `http://api.geonames.org/postalCodeSearchJSON?postalcode_startsWith=${zipCode}&maxRows=5&username=riddhamgadia&country=US`
       )
       .then((geonamesResponse) => {
         // Extract and send the suggestions as JSON response
@@ -58,12 +61,16 @@ app.get('/search', (req, res) => {
   }
   // Add Condition item filter if condition is provided. Here, we assume 'condition' could be an array.
   if (condition && Array.isArray(condition)) {
-    apiUrl += `&itemFilter(${itemFilterIndex}).name=Condition`;
-    condition.forEach((cond, idx) => {
-        apiUrl += `&itemFilter(${itemFilterIndex}).value(${idx})=${encodeURIComponent(cond)}`;
-    });
-    itemFilterIndex++;
-  }
+    const validConditions = condition.filter(cond => cond !== 'unspecified');
+
+    if (validConditions.length > 0) {
+        apiUrl += `&itemFilter(${itemFilterIndex}).name=Condition`;
+        validConditions.forEach((cond, idx) => {
+            apiUrl += `&itemFilter(${itemFilterIndex}).value(${idx})=${encodeURIComponent(cond)}`;
+        });
+        itemFilterIndex++;
+    }
+}
   // Always add the HideDuplicateItems filter
   apiUrl += `&itemFilter(${itemFilterIndex}).name=HideDuplicateItems&itemFilter(${itemFilterIndex}).value=true`;
   itemFilterIndex++;
@@ -117,6 +124,25 @@ app.get('/getSimilarItems', (req, res) => {
       .catch(error => {
           console.error('Error fetching similar items from eBay:', error.message);
           res.status(500).json({ error: 'An error occurred while fetching similar items from eBay.' });
+      });
+});
+
+app.get('/getProductImages', (req, res) => {
+  const { productTitle } = req.query;
+
+  const apiUrl = `https://www.googleapis.com/customsearch/v1?q=${encodeURIComponent(productTitle)}&cx=${GOOGLE_CSE_ID}&imgSize=huge&num=8&searchType=image&key=${GOOGLE_CSE_API_KEY}`;
+  axios.get(apiUrl)
+      .then(response => {
+          const images = response.data.items.map(item => ({
+              link: item.link,
+              snippet: item.snippet,
+              thumbnail: item.image.thumbnailLink
+          }));
+          res.json(images);
+      })
+      .catch(error => {
+          console.error('Error fetching images from Google Custom Search:', error.message);
+          res.status(500).json({ error: 'An error occurred while fetching product images from Google Custom Search.' });
       });
 });
 
