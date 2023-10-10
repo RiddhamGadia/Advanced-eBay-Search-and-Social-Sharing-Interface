@@ -16,7 +16,6 @@ const oauthToken = new OAuthToken(client_id, client_secret);
 // Autocomplete route
 app.get('/autocomplete', (req, res) => {
     const { zipCode } = req.query;
-  
     // Make a request to the Geonames API for suggestions
     axios
       .get(
