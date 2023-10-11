@@ -1,0 +1,8 @@
+.break-word {
+    display: inline;
+}
+@media (min-width: 576px) {
+    .break-word {
+        display: block;
+    }
+}
