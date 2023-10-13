@@ -1,57 +1,70 @@
-<div class="container border">
-  <div class="container col-sm-6 border my-3">
+<div class="container border bg-dark text-white">
+  <div class="container col-md-6 my-3">
     <h3 class="">Product Search</h3>
-    <form action="" class="">
+    <form action="">
       <div class="row mt-3">
-        <label for="keyword" class="col-sm-3 col-form-label">Keyword<span class="text-danger">*</span></label>
-        <div class="col-sm-7">
-          <input type="text" class="form-control" id="keyword" />
+        <label for="keyword" class="col-md-3 col-form-label">Keyword<span class="text-danger">*</span></label>
+        <div class="col-md-7">
+          <input type="text" class="form-control" name="keyword" id="keyword" placeholder="Enter Product Name (eg. iPhone 8)" [(ngModel)]="keyword" required/>
+          <p>{{keyword}}</p>
         </div>
       </div>
       <div class="row mt-3">
-        <label for="category" class="col-sm-3 col-form-label">Category</label>
-        <div class="col-sm-3">
-          <select class="form-select text-center">
-            <option selected>All Category</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+        <label for="category" class="col-md-3 col-form-label">Category</label>
+        <div class="col-md-3">
+          {{categoryId}}
+          <select class="form-select" name="categoryId" [(ngModel)]="categoryId">
+            <option selected value="0">All Categories</option>
+            <option value="550">Art</option>
+            <option value="2984">Baby</option>
+            <option value="267">Books</option>
+            <option value="11450">Clothing, Shoes &amp; Accessories</option>
+            <option value="58058">Computers/Tablets &amp; Networking</option>
+            <option value="21136">Health &amp; Beauty</option>
+            <option value="157003">Music</option>
+            <option value="1249">Video Games &amp; Consoles</option>
           </select>
         </div>
       </div>
+      <p>{{conditionStates.New}}</p>
+      <p>{{conditionStates.Used}}</p>
+      <p>{{conditionStates.Unspecified}}</p>
       <div class="row mt-3">
-        <div class="col-sm-3">
+        <div class="col-md-3">
           <label for="condition" class="form-label">Condition</label>
         </div>
-        <div class="col-sm-6">
-          <input class="form-check-input me-1" type="checkbox" value="" id="New" />
+        <div class="col-md-6">
+          <input class="form-check-input me-1" name="conditionNew" type="checkbox" id="New" [(ngModel)]="conditionStates.New" />
           <label class="form-check-label me-3" for="New">New</label>
-          <input class="form-check-input me-1" type="checkbox" value="" id="Used"/>
+          <input class="form-check-input me-1" name="conditionUsed" type="checkbox" id="Used" [(ngModel)]="conditionStates.Used"/>
           <label class="form-check-label me-3" for="Used">Used</label>
-          <input class="form-check-input me-1" type="checkbox" value="" id="Unspecified"/>
+          <input class="form-check-input me-1" name="conditionUnspecified" type="checkbox" id="Unspecified" [(ngModel)]="conditionStates.Unspecified"/>
           <label class="form-check-label me-3" for="Unspecified">Unspecified</label>
         </div>
       </div>
+      <p>{{shippingOptions.localPickup}}</p>
+      <p>{{shippingOptions.freeShipping}}</p>
       <div class="row mt-3">
-        <div class="col-sm-3">
+        <div class="col-md-3">
           <label for="condition" class="form-label">Shipping Options</label>
         </div>
-        <div class="col-sm-6">
-          <input class="form-check-input me-1" type="checkbox" value="" id="localpickup" />
-          <label class="form-check-label me-3" for="localpickup">Local Pickup</label>
-          <input class="form-check-input me-1" type="checkbox" value="" id="freeshipping"/>
-          <label class="form-check-label me-3" for="freeshipping">Free Shipping</label>
+        <div class="col-md-6">
+          <input class="form-check-input me-1" type="checkbox" id="localPickup" name="localPickup" [(ngModel)]="shippingOptions.localPickup"/>
+          <label class="form-check-label me-3" for="localPickup">Local Pickup</label>
+          <input class="form-check-input me-1" type="checkbox" id="freeShipping" name="freeShipping" [(ngModel)]="shippingOptions.freeShipping"/>
+          <label class="form-check-label me-3" for="freeShipping">Free Shipping</label>
+        </div>
+      </div>
+      <p>{{distance}}</p>
+      <div class="row mt-3">
+        <label for="distance" class="col-md-3 col-form-label">Distance (Miles)</label>
+        <div class="col-md-3">
+          <input type="number" class="form-control" name="distance" id="distance" placeholder="10" [(ngModel)]="distance" />
         </div>
       </div>
       <div class="row mt-3">
-        <label for="distance" class="col-sm-3 col-form-label">Distance (Miles)</label>
-        <div class="col-sm-3">
-          <input type="number" class="form-control" id="distance" />
-        </div>
-      </div>
-      <div class="row mt-3">
-        <label for="from" class="col-sm-3 col-form-label">From<span class="text-danger">*</span></label>
-        <div class="col-sm-9">
+        <label for="from" class="col-md-3 col-form-label">From<span class="text-danger">*</span></label>
+        <div class="col-md-9">
           <div class="form-check">
             <input class="form-check-input" type="radio" name="currentlocation" id="currentlocation" value="currentlocation" checked>
             <label class="form-check-label" for="currentlocation">
@@ -59,23 +72,107 @@
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="other" id="other" value="other">
+            <input class="form-check-input" type="radio" name="currentlocation" id="other" value="other">
             <label class="form-check-label" for="other">
               Other. Please specify zip <span class="break-word">code:</span>
             </label>
           </div>
-          <div class="col-sm-9 mt-2">
-            <input type="text" class="form-control" id="keyword" />
+          <div class="col-md-9 mt-2">
+            <input type="text" class="form-control" id="" />
           </div>
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col-sm-9">
-          <button class="btn btn-primary btn-sm col-3 me-4" type="submit"><i class="bi bi-search p-1"></i>Search</button>
-          <button class="btn btn-primary btn-sm col-3 me-4" type="reset"><i class="bi bi-search p-1"></i>Clear </button>
+        <div class="col-md-9">
+          <button class="btn btn-primary btn-sm col-3 me-4 btn-light py-2" name="submit" type="submit"><i class="bi bi-search p-1"></i>Search</button>
+          <button class="btn btn-primary btn-sm col-3 me-4 btn-light py-2" name="reset" type="reset"><i class="bi bi-search p-1"></i>Clear </button>
         </div>
           
       </div>
     </form>
   </div>
+</div>
+<div class="container text-center">
+  <button type="button" class="btn btn-dark px-3 my-3 me-3">Results</button>
+  <button type="button" class="btn btn-dark px-3 my-3">Wishlist</button>
+</div>
+<div class="table-responsive container">
+  <table class="table table-striped table-dark table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+        <th scope="col">Handle</th>
+        <th scope="col">Handle</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+        <td>Jacob</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+        <td>Jacob</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Larry</td>
+        <td>the Bird</td>
+        <td>@twitter</td>
+        <td>Jacob</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Larry</td>
+        <td>the Bird</td>
+        <td>@twitter</td>
+        <td>Jacob</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Larry</td>
+        <td>the Bird</td>
+        <td>@twitter</td>
+        <td>Jacob</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Larry</td>
+        <td>the Bird</td>
+        <td>@twitter</td>
+        <td>Jacob</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Larry</td>
+        <td>the Bird</td>
+        <td>@twitter</td>
+        <td>Jacob</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Larry</td>
+        <td>the Bird</td>
+        <td>@twitter</td>
+        <td>Jacob</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Larry</td>
+        <td>the Bird</td>
+        <td>@twitter</td>
+        <td>Jacob</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -6,5 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title='myapp';
+  keyword: string = '';
+  distance: number = 10;
+  categoryId: string = '0';
+  conditionStates: any ={
+    New: false,
+    Used: false,
+    Unspecified: false
+  };
+  shippingOptions: any = {
+    localPickup: false,
+    freeShipping: false
+  };
+
 }
