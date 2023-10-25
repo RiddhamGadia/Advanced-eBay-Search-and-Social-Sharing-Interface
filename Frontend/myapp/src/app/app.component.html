@@ -1,19 +1,22 @@
 <div class="container border bg-dark text-white">
   <div class="container col-md-6 my-3">
     <h3 class="">Product Search</h3>
-    <form action="">
+    <form action="" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
       <div class="row mt-3">
         <label for="keyword" class="col-md-3 col-form-label">Keyword<span class="text-danger">*</span></label>
         <div class="col-md-7">
-          <input type="text" class="form-control" name="keyword" id="keyword" placeholder="Enter Product Name (eg. iPhone 8)" [(ngModel)]="keyword" required/>
-          <p>{{keyword}}</p>
+          <input type="text" class="form-control" formControlName="keyword" id="keyword" placeholder="Enter Product Name (eg. iPhone 8)" required/>
+          <div *ngIf="searchForm.controls['keyword'].invalid && searchForm.controls['keyword'].touched" class="text-danger">
+            Please enter a keyword.
+          </div>
+          <p>{{searchForm.get('keyword')?.value}}</p>
         </div>
       </div>
       <div class="row mt-3">
         <label for="category" class="col-md-3 col-form-label">Category</label>
         <div class="col-md-3">
-          {{categoryId}}
-          <select class="form-select" name="categoryId" [(ngModel)]="categoryId">
+          {{searchForm.get('categoryId')?.value}}
+          <select class="form-select" name="categoryId" formControlName="categoryId">
             <option selected value="0">All Categories</option>
             <option value="550">Art</option>
             <option value="2984">Baby</option>
@@ -26,65 +29,74 @@
           </select>
         </div>
       </div>
-      <p>{{conditionStates.New}}</p>
-      <p>{{conditionStates.Used}}</p>
-      <p>{{conditionStates.Unspecified}}</p>
-      <div class="row mt-3">
+      <p>{{searchForm.get('conditionStates.New')?.value}}</p>
+      <p>{{searchForm.get('conditionStates.Used')?.value}}</p>
+      <p>{{searchForm.get('conditionStates.Unspecified')?.value}}</p>
+      <div class="row mt-3" formGroupName="conditionStates">
         <div class="col-md-3">
           <label for="condition" class="form-label">Condition</label>
         </div>
         <div class="col-md-6">
-          <input class="form-check-input me-1" name="conditionNew" type="checkbox" id="New" [(ngModel)]="conditionStates.New" />
+          <input class="form-check-input me-1" name="conditionNew" type="checkbox" id="New" formControlName="New" />
           <label class="form-check-label me-3" for="New">New</label>
-          <input class="form-check-input me-1" name="conditionUsed" type="checkbox" id="Used" [(ngModel)]="conditionStates.Used"/>
+          <input class="form-check-input me-1" name="conditionUsed" type="checkbox" id="Used" formControlName="Used"/>
           <label class="form-check-label me-3" for="Used">Used</label>
-          <input class="form-check-input me-1" name="conditionUnspecified" type="checkbox" id="Unspecified" [(ngModel)]="conditionStates.Unspecified"/>
+          <input class="form-check-input me-1" name="conditionUnspecified" type="checkbox" id="Unspecified" formControlName="Unspecified"/>
           <label class="form-check-label me-3" for="Unspecified">Unspecified</label>
         </div>
       </div>
-      <p>{{shippingOptions.localPickup}}</p>
-      <p>{{shippingOptions.freeShipping}}</p>
-      <div class="row mt-3">
+      <p>{{searchForm.get('shippingOptions.localPickup')?.value}}</p>
+      <p>{{searchForm.get('shippingOptions.freeShipping')?.value}}</p>
+      <div class="row mt-3" formGroupName="shippingOptions">
         <div class="col-md-3">
           <label for="condition" class="form-label">Shipping Options</label>
         </div>
         <div class="col-md-6">
-          <input class="form-check-input me-1" type="checkbox" id="localPickup" name="localPickup" [(ngModel)]="shippingOptions.localPickup"/>
+          <input class="form-check-input me-1" type="checkbox" id="localPickup" name="localPickup" formControlName="localPickup"/>
           <label class="form-check-label me-3" for="localPickup">Local Pickup</label>
-          <input class="form-check-input me-1" type="checkbox" id="freeShipping" name="freeShipping" [(ngModel)]="shippingOptions.freeShipping"/>
+          <input class="form-check-input me-1" type="checkbox" id="freeShipping" name="freeShipping" formControlName="freeShipping"/>
           <label class="form-check-label me-3" for="freeShipping">Free Shipping</label>
         </div>
       </div>
-      <p>{{distance}}</p>
+      <p>{{searchForm.get('distance')?.value}}</p>
       <div class="row mt-3">
         <label for="distance" class="col-md-3 col-form-label">Distance (Miles)</label>
         <div class="col-md-3">
-          <input type="number" class="form-control" name="distance" id="distance" placeholder="10" [(ngModel)]="distance" />
+          <input type="number" class="form-control" name="distance" id="distance" placeholder="10" formControlName="distance" />
         </div>
       </div>
       <div class="row mt-3">
+        <p>{{searchForm.get('zip')?.value}}</p>
         <label for="from" class="col-md-3 col-form-label">From<span class="text-danger">*</span></label>
-        <div class="col-md-9">
+        <div class="col-md-7">
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="currentlocation" id="currentlocation" value="currentlocation" checked>
+            <input class="form-check-input" type="radio" name="zipOption" id="currentlocation" formControlName="zipOption" value="currentlocation" checked>
             <label class="form-check-label" for="currentlocation">
               'Current Location'
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="currentlocation" id="other" value="other">
+            <input class="form-check-input" type="radio" name="zipOption" id="other" formControlName="zipOption" value="other">
             <label class="form-check-label" for="other">
               Other. Please specify zip <span class="break-word">code:</span>
             </label>
           </div>
-          <div class="col-md-9 mt-2">
-            <input type="text" class="form-control" id="" />
+          <div class="">
+              <input type="text" class="form-control" name="zip" matInput formControlName="zip" [matAutocomplete]="auto" required/>
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
           </div>
+          <div *ngIf="isZipError()" class="text-danger">
+            Please enter a zip code
+          </div>          
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-md-9">
-          <button class="btn btn-primary btn-sm col-3 me-4 btn-light py-2" name="submit" type="submit"><i class="bi bi-search p-1"></i>Search</button>
+          <button class="btn btn-primary btn-sm col-3 me-4 btn-light py-2" [disabled]="!searchForm.valid" name="submit" type="submit"><i class="bi bi-search p-1"></i>Search</button>
           <button class="btn btn-primary btn-sm col-3 me-4 btn-light py-2" name="reset" type="reset"><i class="bi bi-search p-1"></i>Clear </button>
         </div>
           

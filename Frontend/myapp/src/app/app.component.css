@@ -6,3 +6,6 @@
         display: block;
     }
 }
+.form-control.ng-invalid.ng-touched {
+    border-color: red;
+}

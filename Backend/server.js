@@ -19,7 +19,11 @@ const GOOGLE_CSE_ID = '2088a7d00683e4899'; // replace with your custom search en
 // Autocomplete route
 app.get('/autocomplete', (req, res) => {
     const { zipCode } = req.query;
+    console.log('zicode='+zipCode);
     // Make a request to the Geonames API for suggestions
+    if (!zipCode) {
+      return;
+    }
     axios
       .get(
         `http://api.geonames.org/postalCodeSearchJSON?postalcode_startsWith=${zipCode}&maxRows=5&username=riddhamgadia&country=US`
