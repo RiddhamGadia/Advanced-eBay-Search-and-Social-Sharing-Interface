@@ -11,6 +11,7 @@ export class AppComponent {
   searchForm!: FormGroup;
   options: string[] = ['One', 'Two', 'Three']; // autocomplete options
   filteredOptions: string[] = []; // filtered options
+  currentZip: string = '';
 
   constructor(private fb: FormBuilder, private service: AutocompleteService) { }
 
@@ -18,6 +19,7 @@ export class AppComponent {
     this.initializeForm();
     this.handleZipOptionState(this.searchForm.get('zipOption')?.value);
     this.listenToZipChanges();
+    this.fetchCurrentLocationZip();
   }
 
   private initializeForm(): void {
@@ -79,23 +81,10 @@ export class AppComponent {
     this.filteredOptions = [...this.options];
   }
 
-  // getzipcodes(): string[] {
-  //   return this.service.getZipcodeAutoComplete(selectc);
-  // }
-
   getCurrentLocationZip(): string {
-    // Mocking the returned ZIP for now. In a real scenario, you'd fetch this using Google's location services or other services.
-    console.log('entered')
-    return '12345';  
+    console.log('Using ZIP from IP:', this.currentZip);
+    return this.currentZip;  
   }
-  // onZipOptionChange(event: any) {
-  //   if (event.target.value === 'currentlocation') {
-  //       this.searchForm.get('zip')?.setValue(this.getCurrentLocationZip());
-  //   } else {
-  //       // Clear the ZIP if 'other' is selected to allow user input
-  //       this.searchForm.get('zip')?.setValue('');
-  //   }
-  // }
   private listenToZipChanges(): void {
     this.searchForm.get('zipOption')?.valueChanges.subscribe((value) => {
       if (value === 'currentlocation') {
@@ -128,5 +117,10 @@ export class AppComponent {
       this.searchForm.get('zip')?.markAsTouched();
     }
   }
+  fetchCurrentLocationZip(): void {
+    this.service.getCurrentLocationZip().subscribe(zip1 => {
+        this.currentZip = zip1;
+    });
+}
   
 }
