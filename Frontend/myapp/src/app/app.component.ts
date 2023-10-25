@@ -58,7 +58,8 @@ export class AppComponent {
     console.log(this.searchForm.value);
   }
 
-  onReset(): void {
+  onReset(event:any): void {
+    event.preventDefault();
     this.searchForm.reset({
       keyword: '',
       categoryId: '0',
@@ -73,7 +74,7 @@ export class AppComponent {
       },
       distance: 10,
       zip:'',
-      zipOption: ['currentlocation'],
+      zipOption: 'currentlocation',
     });
     this.filteredOptions = [...this.options];
   }
