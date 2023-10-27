@@ -9,13 +9,11 @@
           <div *ngIf="searchForm.controls['keyword'].invalid && searchForm.controls['keyword'].touched" class="text-danger">
             Please enter a keyword.
           </div>
-          <p>{{searchForm.get('keyword')?.value}}</p>
         </div>
       </div>
       <div class="row mt-3">
         <label for="category" class="col-md-3 col-form-label">Category</label>
         <div class="col-md-3">
-          {{searchForm.get('categoryId')?.value}}
           <select class="form-select" name="categoryId" formControlName="categoryId">
             <option selected value="0">All Categories</option>
             <option value="550">Art</option>
@@ -29,9 +27,6 @@
           </select>
         </div>
       </div>
-      <p>{{searchForm.get('conditionStates.New')?.value}}</p>
-      <p>{{searchForm.get('conditionStates.Used')?.value}}</p>
-      <p>{{searchForm.get('conditionStates.Unspecified')?.value}}</p>
       <div class="row mt-3" formGroupName="conditionStates">
         <div class="col-md-3">
           <label for="condition" class="form-label">Condition</label>
@@ -45,8 +40,6 @@
           <label class="form-check-label me-3" for="Unspecified">Unspecified</label>
         </div>
       </div>
-      <p>{{searchForm.get('shippingOptions.localPickup')?.value}}</p>
-      <p>{{searchForm.get('shippingOptions.freeShipping')?.value}}</p>
       <div class="row mt-3" formGroupName="shippingOptions">
         <div class="col-md-3">
           <label for="condition" class="form-label">Shipping Options</label>
@@ -58,7 +51,6 @@
           <label class="form-check-label me-3" for="freeShipping">Free Shipping</label>
         </div>
       </div>
-      <p>{{searchForm.get('distance')?.value}}</p>
       <div class="row mt-3">
         <label for="distance" class="col-md-3 col-form-label">Distance (Miles)</label>
         <div class="col-md-3">
@@ -66,7 +58,6 @@
         </div>
       </div>
       <div class="row mt-3">
-        <p>{{searchForm.get('zip')?.value}}</p>
         <label for="from" class="col-md-3 col-form-label">From<span class="text-danger">*</span></label>
         <div class="col-md-7">
           <div class="form-check">
@@ -109,85 +100,16 @@
   <button type="button" class="btn px-3 my-3" routerLink="/wishlist" routerLinkActive="active">Wishlist</button>
   <button type="button" class="btn px-3 my-3" routerLink="/individual" routerLinkActive="active">Individual</button>
 </div>
+<div class="container">
+  <div *ngIf="showProgressBar" class="progress">
+    <div 
+      class="progress-bar progress-bar-striped" 
+      role="progressbar" 
+      [style.width]="progressBarValue + '%'" 
+      [attr.aria-valuenow]="progressBarValue" 
+      aria-valuemin="0" 
+      aria-valuemax="100">
+    </div>
+  </div>
+</div>
 <router-outlet></router-outlet>
-
-<!-- <div class="table-responsive container">
-  <table class="table table-striped table-dark table-hover">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-        <th scope="col">Handle</th>
-        <th scope="col">Handle</th>
-        <th scope="col">Handle</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>Jacob</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-        <td>Jacob</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>Jacob</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>Jacob</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>Jacob</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>Jacob</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>Jacob</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>Jacob</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>Jacob</td>
-      </tr>
-    </tbody>
-  </table>
-</div> -->

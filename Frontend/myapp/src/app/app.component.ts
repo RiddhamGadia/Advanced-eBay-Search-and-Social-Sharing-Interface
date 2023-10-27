@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AutocompleteService } from './Services/autocomplete.service';
 import { filter } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { SearchService } from './Services/search.service';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +15,10 @@ export class AppComponent {
   options: string[] = ['One', 'Two', 'Three']; // autocomplete options
   filteredOptions: string[] = []; // filtered options
   currentZip: string = '';
+  progressBarValue: number = 0; // Progress bar value
+  showProgressBar: boolean = false;
 
-  constructor(private fb: FormBuilder, private service: AutocompleteService, private router: Router) { }
+  constructor(private fb: FormBuilder, private service: AutocompleteService, private router: Router, private searchService: SearchService) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -59,10 +62,32 @@ export class AppComponent {
   }
 
   onSubmit(): void {
+    this.startProgressBar();
     if(this.searchForm.get('zipOption')?.value === 'currentlocation'){
       this.searchForm.value.zip = this.getCurrentLocationZip();
     }
     console.log(this.searchForm.value);
+    this.searchService.executeSearch(this.searchForm.value).subscribe(response => {
+      if (response && 
+          response.findItemsAdvancedResponse && 
+          response.findItemsAdvancedResponse.length > 0 && 
+          response.findItemsAdvancedResponse[0].searchResult && 
+          response.findItemsAdvancedResponse[0].searchResult.length > 0 &&
+          response.findItemsAdvancedResponse[0].searchResult[0].item &&
+          response.findItemsAdvancedResponse[0].searchResult[0].item.length > 0) {
+          
+        const items = response.findItemsAdvancedResponse[0].searchResult[0].item;
+        console.log(items);
+        this.searchService.setResults(items);
+        this.stopProgressBar();
+        this.router.navigate(['/results']);
+        // Handle your extracted items here
+      } else {
+        this.stopProgressBar();
+        console.warn('Unexpected search response format');
+        // Handle the error or unexpected format appropriately
+      }
+    });    
   }
 
   onReset(event:any): void {
@@ -127,6 +152,15 @@ export class AppComponent {
     this.service.getCurrentLocationZip().subscribe(zip1 => {
         this.currentZip = zip1;
     });
-}
+  }
+  startProgressBar(): void {
+    this.showProgressBar = true;
+    this.progressBarValue = 50; // You can set this to any initial value or even animate it over time
+  }
+
+  stopProgressBar(): void {
+    this.showProgressBar = false;
+    this.progressBarValue = 0;
+  }
   
 }
