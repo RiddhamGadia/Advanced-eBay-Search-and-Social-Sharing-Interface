@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AutocompleteService } from './Services/autocomplete.service';
 import { filter } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent {
   filteredOptions: string[] = []; // filtered options
   currentZip: string = '';
 
-  constructor(private fb: FormBuilder, private service: AutocompleteService) { }
+  constructor(private fb: FormBuilder, private service: AutocompleteService, private router: Router) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -83,6 +84,7 @@ export class AppComponent {
       zipOption: 'currentlocation',
     });
     this.filteredOptions = [...this.options];
+    this.router.navigate(['/']);
   }
 
   getCurrentLocationZip(): string {
