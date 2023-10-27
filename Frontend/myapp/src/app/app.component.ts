@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AutocompleteService } from './Services/autocomplete.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -39,7 +40,10 @@ export class AppComponent {
       zip: ['',[Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
       zipOption: ['currentlocation',Validators.required],
     });
-    this.searchForm.get('zip')?.valueChanges.subscribe(newZipValue  => {
+    this.searchForm.get('zip')?.valueChanges
+    .pipe(
+      filter(newZipValue => !!newZipValue) // This will filter out null, undefined, empty string, etc.
+    ).subscribe(newZipValue  => {
       this.filterData(newZipValue );
       this.getAutocompleteZip(newZipValue);
     })
