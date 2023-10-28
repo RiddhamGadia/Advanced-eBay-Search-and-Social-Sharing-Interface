@@ -21,14 +21,20 @@ export class ResultsComponent {
       } else {
           console.warn('Unexpected data structure:', items);
       }
-      console.log(this.results);
   });
     
   }
 
   toogleIcon(item:any):void {
-    console.log(item);
-    item.isInWishlist = !item.isInWishlist;
+    if(!item.isInWishlist){
+      item.isInWishlist = !item.isInWishlist;
+      console.log("wishlist",item.isInWishlist);
+    }
+    else{
+      item.isInWishlist = !item.isInWishlist;
+      console.log("not wishlist",item.isInWishlist);
+    }
+   
   }
   
   performTitleAction(itemId:string): void {

@@ -8,7 +8,7 @@ import { tap } from 'rxjs/operators';
 })
 export class SearchService {
 
-  private _results = new BehaviorSubject<any>({});  // Using BehaviorSubject to hold results
+  private _results = new BehaviorSubject<any>([]);  // Using BehaviorSubject to hold results
   public results$ = this._results.asObservable();    // Expose as Observable for components to subscribe
 
   constructor(private http : HttpClient) { }
@@ -26,7 +26,14 @@ export class SearchService {
     
     return this.http.get<any>(`http://localhost:3000/search`, { params: transformedCriteria }).pipe(
       tap((data:any) => {
-        this._results.next(data); // Update the BehaviorSubject with the new results
+        if (data && 
+          data.findItemsAdvancedResponse && 
+          data.findItemsAdvancedResponse.length > 0 && 
+          data.findItemsAdvancedResponse[0].searchResult && 
+          data.findItemsAdvancedResponse[0].searchResult.length > 0 &&
+          data.findItemsAdvancedResponse[0].searchResult[0].item &&
+          data.findItemsAdvancedResponse[0].searchResult[0].item.length > 0) {
+        this._results.next(data.findItemsAdvancedResponse[0].searchResult[0].item)} // Update the BehaviorSubject with the new results
       })
     );
   }

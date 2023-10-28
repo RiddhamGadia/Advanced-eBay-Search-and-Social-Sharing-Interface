@@ -79,6 +79,7 @@ export class AppComponent {
         const items = response.findItemsAdvancedResponse[0].searchResult[0].item;
         // console.log(items);
         this.searchService.setResults(items);
+        console.log('Search results:', items);
         this.stopProgressBar();
         this.router.navigate(['/results']);
         // Handle your extracted items here
