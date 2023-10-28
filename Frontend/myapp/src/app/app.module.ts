@@ -16,6 +16,7 @@ import { PhotosComponent } from './Components/photos/photos.component';
 import { ShippingComponent } from './Components/shipping/shipping.component';
 import { SellerComponent } from './Components/seller/seller.component';
 import { SimilarproductComponent } from './Components/similarproduct/similarproduct.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { SimilarproductComponent } from './Components/similarproduct/similarprod
     MatAutocompleteModule,
     MatInputModule,
     HttpClientModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -23,3 +23,13 @@
 .title{
     color: blue;
 }
+.img-format{
+    background-size: cover; /* adjust as needed */
+    background-position: center; 
+    width: 90px; /* adjust as needed */
+    height: 90px; /* adjust as needed */
+    background-repeat: no-repeat;
+}
+.pagination-format{
+    text-align: center;
+}

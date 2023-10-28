@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SearchService } from 'src/app/Services/search.service';
 
 @Component({
   selector: 'app-results',
@@ -7,6 +8,15 @@ import { Component } from '@angular/core';
 })
 export class ResultsComponent {
   icon: string = 'add_shopping_cart';
+  results: any[] = [];  // To store the results
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+
+  constructor(private searchService: SearchService) { }
+
+  ngOnInit(): void {
+    this.results = this.searchService.getResults();  // Call getResults method during initialization
+  }
 
   toogleIcon(): void {
     if (this.icon === 'add_shopping_cart') {
@@ -15,9 +25,29 @@ export class ResultsComponent {
       this.icon = 'add_shopping_cart';
     }
   }
-  performTitleAction(): void {
+  performTitleAction(itemId:string): void {
     // Your logic here when title is clicked
-    console.log('Title clicked!');
+    console.log('Title clicked!',itemId);
   }
+  openImage(url: string): void {
+    window.open(url, '_blank');
+  }
+  truncateTitle(title: string, maxLength: number = 50): string {
+    if (title.length <= maxLength) {
+      return title;
+    }
+  
+    let truncated = title.substring(0, maxLength);
+  
+    if (title[maxLength] !== ' ') {
+      let lastSpaceIndex = truncated.lastIndexOf(' ');
+      if (lastSpaceIndex !== -1) {
+        truncated = truncated.substring(0, lastSpaceIndex);
+      }
+    }
+  
+    return `${truncated}…`;
+  }
+  
 
 }

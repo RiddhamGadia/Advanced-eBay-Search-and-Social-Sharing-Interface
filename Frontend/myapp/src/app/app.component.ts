@@ -109,6 +109,7 @@ export class AppComponent {
       zipOption: 'currentlocation',
     });
     this.filteredOptions = [...this.options];
+    this.stopProgressBar();
     this.router.navigate(['/']);
   }
 
