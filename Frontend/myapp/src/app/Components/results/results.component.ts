@@ -15,7 +15,9 @@ export class ResultsComponent {
   constructor(private searchService: SearchService) { }
 
   ngOnInit(): void {
-    this.results = this.searchService.getResults();  // Call getResults method during initialization
+    this.searchService.results$.subscribe((data:any) => {
+      this.results = data.map((item:any) => ({ ...item, isInWishlist: false }));  // Initialize results with 'isInWishlist' property
+    });
   }
 
   toogleIcon(): void {

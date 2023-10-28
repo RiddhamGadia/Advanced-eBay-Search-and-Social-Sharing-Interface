@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
 
-  private results: any[] = [];
+  private _results = new BehaviorSubject<any[]>([]);  // Using BehaviorSubject to hold results
+  public results$ = this._results.asObservable();    // Expose as Observable for components to subscribe
 
   constructor(private http : HttpClient) { }
 
@@ -21,7 +24,11 @@ export class SearchService {
       categoryId: criteria.categoryId
     };
     
-    return this.http.get<any>(`http://localhost:3000/search`, { params: transformedCriteria });
+    return this.http.get<any>(`http://localhost:3000/search`, { params: transformedCriteria }).pipe(
+      tap((data:any) => {
+        this._results.next(data); // Update the BehaviorSubject with the new results
+      })
+    );
   }
   private convertCondition(conditionStates: any): string {
     const conditions = [];
@@ -39,11 +46,7 @@ export class SearchService {
     return conditions.join(','); // Convert array to comma-separated string
   }
   setResults(data: any[]) {
-    this.results = data;
-  }
-
-  getResults(): any[] {
-    return this.results;
+    this._results.next(data);
   }
 
 }
