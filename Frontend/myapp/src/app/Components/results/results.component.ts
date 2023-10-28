@@ -15,12 +15,19 @@ export class ResultsComponent {
   constructor(private searchService: SearchService) { }
 
   ngOnInit(): void {
-    this.searchService.results$.subscribe((data:any) => {
-      this.results = data.map((item:any) => ({ ...item, isInWishlist: false }));  // Initialize results with 'isInWishlist' property
-    });
+    this.searchService.results$.subscribe((items: any[]) => {
+      if (Array.isArray(items)) {
+          this.results = items.map(item => ({ ...item, isInWishlist: false }));
+      } else {
+          console.warn('Unexpected data structure:', items);
+      }
+      console.log(this.results);
+  });
+    
   }
 
   toogleIcon(item:any):void {
+    console.log(item);
     item.isInWishlist = !item.isInWishlist;
   }
   

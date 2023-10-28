@@ -8,7 +8,7 @@ import { tap } from 'rxjs/operators';
 })
 export class SearchService {
 
-  private _results = new BehaviorSubject<any[]>([]);  // Using BehaviorSubject to hold results
+  private _results = new BehaviorSubject<any>({});  // Using BehaviorSubject to hold results
   public results$ = this._results.asObservable();    // Expose as Observable for components to subscribe
 
   constructor(private http : HttpClient) { }

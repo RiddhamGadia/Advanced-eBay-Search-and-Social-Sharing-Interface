@@ -77,7 +77,7 @@ export class AppComponent {
           response.findItemsAdvancedResponse[0].searchResult[0].item.length > 0) {
           
         const items = response.findItemsAdvancedResponse[0].searchResult[0].item;
-        console.log(items);
+        // console.log(items);
         this.searchService.setResults(items);
         this.stopProgressBar();
         this.router.navigate(['/results']);
