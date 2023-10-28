@@ -1,81 +1,27 @@
 <p>results works!</p>
-<!-- <div class="table-responsive container">
+<div class="table-responsive container">
   <table class="table table-striped table-dark table-hover">
     <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-        <th scope="col">Handle</th>
-        <th scope="col">Handle</th>
-        <th scope="col">Handle</th>
+        <th scope="col" class="index-width">#</th>
+        <th scope="col" class="image-width">Image</th>
+        <th scope="col" class="title-width">Title</th>
+        <th scope="col">Price</th>
+        <th scope="col">Shipping</th>
+        <th scope="col">Zip</th>
+        <th scope="col" class="wrap">Wish List</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>Jacob</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-        <td>Jacob</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>Jacob</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>Jacob</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>Jacob</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>Jacob</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>Jacob</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>Jacob</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>Jacob</td>
-      </tr>
-    </tbody>
+        <tr>
+            <th scope="row" class="index-width">2</th>
+            <td><img src="../../../assets/img.JPG" alt="Versace Men's Tag" class="img-fluid" style="width: 70px;"></td>
+            <td class="wrap title" (click)="performTitleAction()">Brand New With Tags Men's VERSACE ...</td>
+            <td class="wrap">$89.95</td>
+            <td class="wrap">$10.90</td>
+            <td class="wrap">917**</td>
+            <td><button class="btn btn-primary btn-sm btn-light px-3 py-1" name="cart" (click)="toogleIcon()" [ngClass]="{'remove-class': icon === 'remove_shopping_cart'}"><span class="material-symbols-outlined img-fluid">{{icon}}</span></button></td>
+        </tr>
+      </tbody>
   </table>
-</div> -->
+</div>
