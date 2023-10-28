@@ -1,12 +1,16 @@
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+const bodyParser = require('body-parser');
 const OAuthToken = require('./ebay_oauth_token');
+const { MongoClient, ServerApiVersion } = require('mongodb')
 const app = express();
 const port = 3000;
 
 app.use(cors());
+app.use(bodyParser.json());
 
+const uri = "mongodb+srv://rgadia2000:mynewpassword@cluster0.w9fdote.mongodb.net/?retryWrites=true&w=majority";
 const APP_ID = 'RiddhamG-CSCI571A-PRD-472b2ae15-4dc4edc3';
 
 const client_id = 'RiddhamG-CSCI571A-PRD-472b2ae15-4dc4edc3';
@@ -15,6 +19,26 @@ const oauthToken = new OAuthToken(client_id, client_secret);
 
 const GOOGLE_CSE_API_KEY = 'AIzaSyD-cPzAO31rvcg0pmhAfYEj5FKpWu0kvb0'; // replace with your actual API key
 const GOOGLE_CSE_ID = '2088a7d00683e4899'; // replace with your custom search engine ID
+
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+async function run() {
+  try {
+    // Connect the client to the server	(optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    db = await client.db('webtech3');
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } finally {
+    // Ensures that the client will close when you finish/error
+  }
+}
+run().catch(console.dir);
 
 // Autocomplete route
 app.get('/autocomplete', (req, res) => {
@@ -151,6 +175,44 @@ app.get('/getProductImages', (req, res) => {
           console.error('Error fetching images from Google Custom Search:', error.message);
           res.status(500).json({ error: 'An error occurred while fetching product images from Google Custom Search.' });
       });
+});
+
+// Route to add a document to the 'wishlist' collection using POST
+app.post('/addDoc', async (req, res) => {
+  const document = req.body;
+  console.log(document);
+  if (!document || Object.keys(document).length === 0) {
+      return res.status(400).json({ error: 'Please provide document fields.' });
+  }
+
+  const collection = db.collection('wishlist');
+  try {
+      const result = await collection.insertOne(document);
+      console.log(result);
+      if (result.acknowledged) {
+          console.log('Document added successfully!');
+          res.json({ success: true, message: 'Document added successfully!' });
+      } else {
+          throw new Error('Failed to insert document into MongoDB.');
+      }
+  } catch (err) {
+      console.error('Error inserting document:', err);
+      res.status(500).json({ error: 'Failed to insert document into MongoDB.' });
+  }
+});
+
+
+app.get('/getAllDocs', async (req, res) => {
+  const collection = db.collection('wishlist');
+
+  try {
+      console.log('connected to db');
+      const docs = await collection.find({}).toArray();
+      res.send(docs);
+  } catch (err) {
+      console.error('Error fetching documents:', err);
+      res.status(500).json({ error: 'Failed to fetch documents from MongoDB.' });
+  }
 });
 
 app.listen(port, () => {
