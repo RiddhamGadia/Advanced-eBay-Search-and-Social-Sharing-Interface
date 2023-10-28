@@ -52,8 +52,8 @@
             
             <!-- Wishlist Button -->
             <td>
-                <button class="btn btn-primary btn-sm btn-light px-3 py-1" name="cart" (click)="toogleIcon()" [ngClass]="{'remove-class': icon === 'remove_shopping_cart'}">
-                    <span class="material-symbols-outlined img-fluid">{{icon}}</span>
+                <button class="btn btn-primary btn-sm btn-light px-3 py-1" name="cart" (click)="toogleIcon(item)" [ngClass]="{'remove-class': item.isInWishlist}">
+                    <span class="material-symbols-outlined img-fluid">{{ item.isInWishlist ? 'remove_shopping_cart' : 'add_shopping_cart' }}</span>
                 </button>
             </td>
         </tr>

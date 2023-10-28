@@ -20,13 +20,10 @@ export class ResultsComponent {
     });
   }
 
-  toogleIcon(): void {
-    if (this.icon === 'add_shopping_cart') {
-      this.icon = 'remove_shopping_cart';
-    } else {
-      this.icon = 'add_shopping_cart';
-    }
+  toogleIcon(item:any):void {
+    item.isInWishlist = !item.isInWishlist;
   }
+  
   performTitleAction(itemId:string): void {
     // Your logic here when title is clicked
     console.log('Title clicked!',itemId);
