@@ -13,7 +13,7 @@ export class SearchService {
 
   constructor(private http : HttpClient) { }
 
-  executeSearch(criteria: any) {
+  executeSearch(criteria: any): void {
     const transformedCriteria = {
       keyword: criteria.keyword,
       buyerpostalcode: criteria.zip,
@@ -24,18 +24,24 @@ export class SearchService {
       categoryId: criteria.categoryId
     };
     
-    return this.http.get<any>(`http://localhost:3000/search`, { params: transformedCriteria }).pipe(
-      tap((data:any) => {
+    this.http.get<any>(`http://localhost:3000/search`, { params: transformedCriteria }).subscribe(data => {
         if (data && 
-          data.findItemsAdvancedResponse && 
-          data.findItemsAdvancedResponse.length > 0 && 
-          data.findItemsAdvancedResponse[0].searchResult && 
-          data.findItemsAdvancedResponse[0].searchResult.length > 0 &&
-          data.findItemsAdvancedResponse[0].searchResult[0].item &&
-          data.findItemsAdvancedResponse[0].searchResult[0].item.length > 0) {
-        this._results.next(data.findItemsAdvancedResponse[0].searchResult[0].item)} // Update the BehaviorSubject with the new results
-      })
-    );
+            data.findItemsAdvancedResponse && 
+            data.findItemsAdvancedResponse.length > 0 && 
+            data.findItemsAdvancedResponse[0].searchResult && 
+            data.findItemsAdvancedResponse[0].searchResult.length > 0 &&
+            data.findItemsAdvancedResponse[0].searchResult[0].item &&
+            data.findItemsAdvancedResponse[0].searchResult[0].item.length > 0) {
+            
+            const items = data.findItemsAdvancedResponse[0].searchResult[0].item;
+            const processedItems = items.map((item: any) => ({
+                ...item,
+                isInWishlist: false
+            }));
+            console.log('search service',processedItems);
+            this._results.next(processedItems);  // Update the BehaviorSubject with the new results
+        }
+    });
   }
   private convertCondition(conditionStates: any): string {
     const conditions = [];
@@ -53,6 +59,7 @@ export class SearchService {
     return conditions.join(','); // Convert array to comma-separated string
   }
   setResults(data: any[]) {
+    console.log('set results');
     this._results.next(data);
   }
 

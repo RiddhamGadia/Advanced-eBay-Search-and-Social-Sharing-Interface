@@ -1,1 +1,50 @@
-<p>wishlist works!</p>
+<!-- Message when no items are found -->
+<div *ngIf="wishlistItems.length === 0" class="container">
+    No records found in wishlist.
+</div>
+
+<!-- Table -->
+<div class="table-responsive container" *ngIf="wishlistItems.length > 0">
+    <table class="table table-striped table-dark table-hover" >
+        <thead>
+          <tr>
+            <th class="index-width">#</th>
+            <th class="image-width">Image</th>
+            <th class="title-width">Title</th>
+            <th>Price</th>
+            <th class="wrap">Shipping Options</th>
+            <th>Favorite</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of wishlistItems; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td (click)="openImage(item.galleryURL[0] || 'N/A')">
+              <div [style.backgroundImage]="'url(' + (item.galleryURL[0] || '../../../assets/img-placeholder.JPG') + ')'"
+                   [attr.alt]="item.title[0] || 'N/A'"
+                   class="img-fluid img-format">
+              </div>
+            </td>
+            <td class="wrap title" (click)="truncateTitle(item.itemId[0])" >{{ truncateTitle(item.title[0]) || 'N/A' }}</td>
+            <td class="wrap">{{ '$' + item.sellingStatus?.[0]?.currentPrice?.[0]?.__value__ || 'N/A' }}</td>
+            <td class="wrap">
+              {{ item.shippingInfo?.[0]?.shippingServiceCost?.[0]?.__value__ === '0.0' ? 'Free Shipping' :( '$' + item.shippingInfo?.[0]?.shippingServiceCost?.[0]?.__value__ || 'N/A' )}}
+              </td>
+            <td>
+              <button class="btn btn-primary btn-sm btn-light px-3 py-1" name="cart" (click)="removeFromWishlist(item)" [ngClass]="{'remove-class': item.isInWishlist}">
+                  <span class="material-symbols-outlined img-fluid">{{ item.isInWishlist ? 'remove_shopping_cart' : 'add_shopping_cart' }}</span>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total Shopping</td>
+            <td>${{ totalPrice }}</td>
+          </tr>
+        </tbody>
+      </table>
+      
+</div>

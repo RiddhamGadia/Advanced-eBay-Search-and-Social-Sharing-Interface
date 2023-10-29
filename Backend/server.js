@@ -215,6 +215,57 @@ app.get('/getAllDocs', async (req, res) => {
   }
 });
 
+app.get('/checkDoc', async (req, res) => {
+  const itemId = req.query.itemId; // Assuming you send itemId as a query parameter
+
+  if (!itemId) {
+      return res.status(400).json({ error: 'Please provide itemId.' });
+  }
+
+  const collection = db.collection('wishlist');
+  
+  try {
+      const document = await collection.findOne({ itemId: itemId });
+      
+      if (document) {  
+          console.log('Document with itemId', itemId, 'exists.');
+          res.json({ success: true, message: 'Document exists!' });
+      } else {
+          console.log('No document found with itemId', itemId);
+          res.status(404).json({ error: 'No document found with the provided itemId.' });
+      }
+  } catch (err) {
+      console.error('Error checking document:', err);
+      res.status(500).json({ error: 'Failed to check document in MongoDB.' });
+  }
+});
+
+app.delete('/removeDoc', async (req, res) => {
+  const itemId = req.body.itemId; // Assuming you send itemId in the request body
+
+  if (!itemId) {
+      return res.status(400).json({ error: 'Please provide itemId.' });
+  }
+
+  const collection = db.collection('wishlist');
+  
+  try {
+      const result = await collection.deleteOne({ itemId: itemId });
+      
+      if (result.deletedCount > 0) {  
+          console.log('Document with itemId', itemId, 'was removed.');
+          res.json({ success: true, message: 'Document removed successfully!' });
+      } else {
+          console.log('No document found with itemId', itemId);
+          res.status(404).json({ error: 'No document found with the provided itemId.' });
+      }
+  } catch (err) {
+      console.error('Error removing document:', err);
+      res.status(500).json({ error: 'Failed to remove document from MongoDB.' });
+  }
+});
+
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
   });

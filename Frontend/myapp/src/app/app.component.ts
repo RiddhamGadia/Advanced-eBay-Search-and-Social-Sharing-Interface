@@ -4,6 +4,7 @@ import { AutocompleteService } from './Services/autocomplete.service';
 import { filter } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { SearchService } from './Services/search.service';
+import { MongodbService } from './Services/mongodb.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent {
   progressBarValue: number = 0; // Progress bar value
   showProgressBar: boolean = false;
 
-  constructor(private fb: FormBuilder, private service: AutocompleteService, private router: Router, private searchService: SearchService) { }
+  constructor(private fb: FormBuilder, private service: AutocompleteService, private router: Router, private searchService: SearchService,private mongodbService: MongodbService) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -67,28 +68,10 @@ export class AppComponent {
       this.searchForm.value.zip = this.getCurrentLocationZip();
     }
     console.log(this.searchForm.value);
-    this.searchService.executeSearch(this.searchForm.value).subscribe(response => {
-      if (response && 
-          response.findItemsAdvancedResponse && 
-          response.findItemsAdvancedResponse.length > 0 && 
-          response.findItemsAdvancedResponse[0].searchResult && 
-          response.findItemsAdvancedResponse[0].searchResult.length > 0 &&
-          response.findItemsAdvancedResponse[0].searchResult[0].item &&
-          response.findItemsAdvancedResponse[0].searchResult[0].item.length > 0) {
-          
-        const items = response.findItemsAdvancedResponse[0].searchResult[0].item;
-        // console.log(items);
-        this.searchService.setResults(items);
-        console.log('Search results:', items);
-        this.stopProgressBar();
-        this.router.navigate(['/results']);
-        // Handle your extracted items here
-      } else {
-        this.stopProgressBar();
-        console.warn('Unexpected search response format');
-        // Handle the error or unexpected format appropriately
-      }
-    });    
+    this.searchService.executeSearch(this.searchForm.value);
+    this.mongodbService.fetchAndUpdateWishlistItems();
+    this.stopProgressBar();
+    this.router.navigate(['/results']);
   }
 
   onReset(event:any): void {

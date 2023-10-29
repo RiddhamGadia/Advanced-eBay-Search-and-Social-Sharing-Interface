@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MongodbService } from 'src/app/Services/mongodb.service';
 import { SearchService } from 'src/app/Services/search.service';
 
 @Component({
@@ -11,31 +12,47 @@ export class ResultsComponent {
   results: any[] = [];  // To store the results
   currentPage: number = 1;
   itemsPerPage: number = 10;
+  wishlistItemIds: Set<string> = new Set();
 
-  constructor(private searchService: SearchService) { }
+  constructor(private searchService: SearchService, private mongodbService: MongodbService) { }
 
   ngOnInit(): void {
-    this.searchService.results$.subscribe((items: any[]) => {
-      if (Array.isArray(items)) {
-          this.results = items.map(item => ({ ...item, isInWishlist: false }));
-      } else {
-          console.warn('Unexpected data structure:', items);
-      }
-  });
-    
+    this.wishlistItemIds=this.mongodbService.getWishlistItemsSet();
+    this.searchService.results$.subscribe(items =>{
+      items.forEach((item:any) => {
+        item.isInWishlist = this.wishlistItemIds.has(item.itemId[0]);
+      });
+      this.results = items;
+    });
+  }
+  
+
+  toogleIcon(item: any): void {
+    console.log('Initial:', item.isInWishlist);
+    if (!item.isInWishlist) {
+      // console.log('In the IF block - Before Change:', item.isInWishlist);
+      item.isInWishlist = !item.isInWishlist;
+      // console.log('In the IF block - After Change:', item.isInWishlist); // Reflect the changes in the service
+      this.mongodbService.updateWishlistItemsSet([item]);
+      this.mongodbService.addDocument(item).subscribe({
+        next: ()=>{
+          console.log('Document added to wishlist');
+        }
+      });
+
+    } else {
+      // console.log('In the ELSE block - Before Change:', item.isInWishlist);
+      item.isInWishlist = !item.isInWishlist;
+      // console.log('In the ELSE block - After Change:', item.isInWishlist);
+      this.mongodbService.removeFromWishlist(item.itemId[0]);
+      this.mongodbService.removeDocument(item.itemId[0]).subscribe({
+        next:()=>{
+          console.log('Document removed from wishlist');
+        }
+      });
+    }
   }
 
-  toogleIcon(item:any):void {
-    if(!item.isInWishlist){
-      item.isInWishlist = !item.isInWishlist;
-      console.log("wishlist",item.isInWishlist);
-    }
-    else{
-      item.isInWishlist = !item.isInWishlist;
-      console.log("not wishlist",item.isInWishlist);
-    }
-   
-  }
   
   performTitleAction(itemId:string): void {
     // Your logic here when title is clicked

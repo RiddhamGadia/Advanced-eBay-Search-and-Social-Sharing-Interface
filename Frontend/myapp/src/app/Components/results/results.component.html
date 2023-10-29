@@ -13,15 +13,6 @@
       </tr>
     </thead>
     <tbody>
-        <!-- <tr>
-            <th scope="row" class="index-width">2</th>
-            <td (click)="openImage('../../../assets/img.JPG')"><img src="../../../assets/img.JPG" alt="Versace Men's Tag" class="img-fluid" style="width: 70px;"></td>
-            <td class="wrap title" (click)="performTitleAction()">Brand New With Tags Men's VERSACE ...</td>
-            <td class="wrap">$89.95</td>
-            <td class="wrap">$10.90</td>
-            <td class="wrap">917**</td>
-            <td><button class="btn btn-primary btn-sm btn-light px-3 py-1" name="cart" (click)="toogleIcon()" [ngClass]="{'remove-class': icon === 'remove_shopping_cart'}"><span class="material-symbols-outlined img-fluid">{{icon}}</span></button></td>
-        </tr> -->
         <tbody>
           <!-- Loop through results if there are any -->
           <tr *ngFor="let item of results | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i = index">
