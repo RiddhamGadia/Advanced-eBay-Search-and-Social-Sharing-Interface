@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { MongodbService } from 'src/app/Services/mongodb.service';
+import { ProductinfoService } from 'src/app/Services/productinfo.service';
 import { SearchService } from 'src/app/Services/search.service';
 
 @Component({
@@ -14,7 +16,7 @@ export class ResultsComponent {
   itemsPerPage: number = 10;
   wishlistItemIds: Set<string> = new Set();
 
-  constructor(private searchService: SearchService, private mongodbService: MongodbService) { }
+  constructor(private searchService: SearchService, private mongodbService: MongodbService,private productService: ProductinfoService, private router: Router) { }
 
   ngOnInit(): void {
     this.wishlistItemIds=this.mongodbService.getWishlistItemsSet();
@@ -54,9 +56,13 @@ export class ResultsComponent {
   }
 
   
-  performTitleAction(itemId:string): void {
+  performTitleAction(item:any): void {
     // Your logic here when title is clicked
-    console.log('Title clicked!',itemId);
+    console.log('Title clicked!',item.itemId[0]);
+    this.productService.setItemId(item.itemId[0]);
+    this.productService.setProductTitle(item.title[0])
+    this.router.navigate(['/individual']);
+
   }
   openImage(url: string): void {
     window.open(url, '_blank');

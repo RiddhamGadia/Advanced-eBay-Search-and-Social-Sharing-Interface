@@ -1,0 +1,13 @@
+.wrap{
+    text-wrap: nowrap;
+}
+.image-width{
+    width: 10%;
+}
+.img-format{
+    background-size: cover; /* adjust as needed */
+    background-position: center; 
+    width: 90px; /* adjust as needed */
+    height: 90px; /* adjust as needed */
+    background-repeat: no-repeat;
+}

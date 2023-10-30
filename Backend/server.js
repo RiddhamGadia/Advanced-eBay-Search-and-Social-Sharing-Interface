@@ -146,7 +146,7 @@ app.get('/getSimilarItems', (req, res) => {
   const { itemId } = req.query;
 
   // Construct the full URL for eBay API
-  const apiUrl = `https://svcs.ebay.com/MerchandisingService?OPERATION-NAME=getSimilarItems&SERVICE-NAME=MerchandisingService&SERVICE-VERSION=1.1.0&APP_ID=${APP_ID}&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&itemId=${itemId}&maxResults=20`;
+  const apiUrl = `https://svcs.ebay.com/MerchandisingService?OPERATION-NAME=getSimilarItems&SERVICE-NAME=MerchandisingService&SERVICE-VERSION=1.1.0&CONSUMER-ID=${APP_ID}&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&itemId=${itemId}&maxResults=20`;
 
   axios.get(apiUrl)
       .then(response => {
@@ -180,7 +180,7 @@ app.get('/getProductImages', (req, res) => {
 // Route to add a document to the 'wishlist' collection using POST
 app.post('/addDoc', async (req, res) => {
   const document = req.body;
-  console.log(document);
+  // console.log(document);
   if (!document || Object.keys(document).length === 0) {
       return res.status(400).json({ error: 'Please provide document fields.' });
   }
@@ -188,7 +188,7 @@ app.post('/addDoc', async (req, res) => {
   const collection = db.collection('wishlist');
   try {
       const result = await collection.insertOne(document);
-      console.log(result);
+      // console.log(result);
       if (result.acknowledged) {
           console.log('Document added successfully!');
           res.json({ success: true, message: 'Document added successfully!' });

@@ -28,7 +28,7 @@
           
             
             <!-- Title -->
-            <td class="wrap title" (click)="performTitleAction(item.itemId[0])" >{{ truncateTitle(item.title[0]) || 'N/A' }}</td>
+            <td class="wrap title" (click)="performTitleAction(item)" >{{ truncateTitle(item.title[0]) || 'N/A' }}</td>
             
             <!-- Price -->
             <td class="wrap">{{ '$' + item.sellingStatus?.[0]?.currentPrice?.[0]?.__value__ || 'N/A' }}</td>
