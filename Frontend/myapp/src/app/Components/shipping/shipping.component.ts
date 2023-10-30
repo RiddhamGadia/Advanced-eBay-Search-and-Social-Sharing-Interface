@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-shipping',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./shipping.component.css']
 })
 export class ShippingComponent {
+  private subscription: Subscription = new Subscription();
 
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 }

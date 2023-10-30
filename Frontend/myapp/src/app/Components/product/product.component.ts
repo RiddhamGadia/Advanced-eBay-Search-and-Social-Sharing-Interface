@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ProductinfoService } from 'src/app/Services/productinfo.service';
 
 @Component({
@@ -10,10 +11,12 @@ export class ProductComponent {
 
   product: any = null;
 
+  private subscription: Subscription = new Subscription();
+
   constructor(private productService: ProductinfoService) { }
 
   ngOnInit(): void {
-    this.productService.productDetail$.subscribe((data: any) => {
+    this.subscription=this.productService.productDetail$.subscribe((data: any) => {
       if (data && 'Item' in data) {
         this.product = data.Item;
         console.log(this.product);
@@ -23,5 +26,9 @@ export class ProductComponent {
       }
     });
   }
-
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 }

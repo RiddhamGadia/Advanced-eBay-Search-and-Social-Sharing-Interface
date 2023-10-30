@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { ProductinfoService } from 'src/app/Services/productinfo.service';
 
 @Component({
@@ -12,11 +13,12 @@ export class SimilarproductComponent {
   originalResults: any[] = [];
   sortForm!: FormGroup;
   displayLimit = 10;
+  private subscription: Subscription = new Subscription();
 
   constructor(private productService: ProductinfoService,private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.productService.similarItems$.subscribe((data:any)=>{
+    this.subscription=this.productService.similarItems$.subscribe((data:any)=>{
       console.log(data);
       if(data && data.getSimilarItemsResponse && data.getSimilarItemsResponse.itemRecommendations && data.getSimilarItemsResponse.itemRecommendations.item) {
         this.results = data.getSimilarItemsResponse.itemRecommendations.item;
@@ -101,6 +103,11 @@ export class SimilarproductComponent {
       this.displayLimit = this.results.length; // Show all results
     } else {
       this.displayLimit = 10; // Show only first 10 results
+    }
+  }
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 }

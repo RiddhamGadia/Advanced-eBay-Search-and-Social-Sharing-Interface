@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MongodbService } from 'src/app/Services/mongodb.service';
 import { ProductinfoService } from 'src/app/Services/productinfo.service';
 import { SearchService } from 'src/app/Services/search.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-results',
@@ -16,11 +17,13 @@ export class ResultsComponent {
   itemsPerPage: number = 10;
   wishlistItemIds: Set<string> = new Set();
 
+  private subscription: Subscription = new Subscription();
+
   constructor(private searchService: SearchService, private mongodbService: MongodbService,private productService: ProductinfoService, private router: Router) { }
 
   ngOnInit(): void {
     this.wishlistItemIds=this.mongodbService.getWishlistItemsSet();
-    this.searchService.results$.subscribe(items =>{
+    this.subscription = this.searchService.results$.subscribe(items =>{
       items.forEach((item:any) => {
         item.isInWishlist = this.wishlistItemIds.has(item.itemId[0]);
       });
@@ -88,6 +91,10 @@ export class ResultsComponent {
   test():void{
     this.router.navigate(['/individual']);
   }
-  
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 
 }

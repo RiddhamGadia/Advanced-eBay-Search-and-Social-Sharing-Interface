@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { MongodbService } from 'src/app/Services/mongodb.service';
 import { SearchService } from 'src/app/Services/search.service';
 
@@ -12,11 +13,12 @@ export class WishlistComponent {
   // icon: string = 'remove_shopping_cart';
   wishlistItems: any[] = [];
   totalPrice: string = '0';
+  private subscription: Subscription = new Subscription();
 
   constructor(private mongodbService: MongodbService,private searchService: SearchService,private router: Router) { }
 
   ngOnInit(): void {
-    this.mongodbService.getAllDocuments().subscribe({
+    this.subscription=this.mongodbService.getAllDocuments().subscribe({
       next: (items: any[]) => {
         this.wishlistItems = items;
         this.getTotalPrice();
@@ -81,5 +83,10 @@ export class WishlistComponent {
   }
   test():void{
     this.router.navigate(['/individual']);
+  }
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }
