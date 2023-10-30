@@ -21,7 +21,7 @@ export class SimilarproductComponent {
       if(data && data.getSimilarItemsResponse && data.getSimilarItemsResponse.itemRecommendations && data.getSimilarItemsResponse.itemRecommendations.item) {
         this.results = data.getSimilarItemsResponse.itemRecommendations.item;
         this.originalResults = [...this.results];
-        console.log(this.results);
+        // console.log(this.results);
       } else {
         console.error("Data format incorrect or no items found:");
       }
@@ -37,6 +37,10 @@ export class SimilarproductComponent {
       } else {
         this.sortForm.get('sortOrder')?.enable();
       }
+      this.sortResults();
+    });
+    this.sortForm.get('sortOrder')?.valueChanges.subscribe(value => {
+      this.sortResults();
     });
   }
   getDaysFromTimeLeft(timeLeft: string): number {
@@ -48,9 +52,11 @@ export class SimilarproductComponent {
   }
 
   sortResults(): void {
-    console.log('valled');
+    // console.log('valled');
     const sortCategory = this.sortForm.get('sortCategory')?.value;
     const sortOrder = this.sortForm.get('sortOrder')?.value;
+
+    let getValue: (product: any) => any = () => {};
 
     if (sortCategory === 'default') {
       // Restore original order
@@ -59,11 +65,10 @@ export class SimilarproductComponent {
     }
 
     // Define the getValue function based on sortCategory
-    let getValue = (product: any) => product[sortCategory];
-    if (sortCategory === 'title') {
+    if (sortCategory === 'productName') {
       getValue = (product: any) => product.title;
     } 
-    else if (sortCategory === 'buyItNowPrice') {
+    else if (sortCategory === 'price') {
       getValue = (product: any) => parseFloat(product.buyItNowPrice.__value__);
     } 
     else if (sortCategory === 'shippingCost') {
@@ -73,20 +78,23 @@ export class SimilarproductComponent {
       getValue = (product: any) => this.getDaysFromTimeLeft(product.timeLeft);
     }
 
-    // Sort based on sortCategory and sortOrder
-    this.results.sort((a, b) => {
-      const aValue = getValue(a);
-      const bValue = getValue(b);
+    if (!getValue) {
+      console.error("sortCategory provided is not valid:", sortCategory);
+      return;
+  }
 
-      if (sortOrder === 'ascending') {
-        if (aValue < bValue) return -1;
-        if (aValue > bValue) return 1;
-      } else {
-        if (aValue > bValue) return -1;
-        if (aValue < bValue) return 1;
-      }
-      return 0;
-    });
+    // Sort based on sortCategory and sortOrder
+    this.results = [...this.results.sort((a: any, b: any) => {
+      const valueA = getValue(a);
+      const valueB = getValue(b);
+   
+      if (sortOrder === 'descending') {
+        return (valueA > valueB) ? -1 : ((valueA < valueB) ? 1 : 0);
+    } else { // Treat any other sortOrder value as 'ascending'
+        return (valueA > valueB) ? 1 : ((valueA < valueB) ? -1 : 0);
+    }    
+   })];
+  //  console.log(this.results);
   }
   toggleDisplayLimit() {
     if (this.displayLimit === 10) {
