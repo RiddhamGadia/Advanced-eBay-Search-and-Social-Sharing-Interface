@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { MongodbService } from 'src/app/Services/mongodb.service';
 import { SearchService } from 'src/app/Services/search.service';
 
@@ -12,7 +13,7 @@ export class WishlistComponent {
   wishlistItems: any[] = [];
   totalPrice: string = '0';
 
-  constructor(private mongodbService: MongodbService,private searchService: SearchService) { }
+  constructor(private mongodbService: MongodbService,private searchService: SearchService,private router: Router) { }
 
   ngOnInit(): void {
     this.mongodbService.getAllDocuments().subscribe({
@@ -77,5 +78,8 @@ export class WishlistComponent {
       const decimalPlaces = (total.toString().split('.')[1] || []).length;
       this.totalPrice = total.toFixed(decimalPlaces);
     }
+  }
+  test():void{
+    this.router.navigate(['/individual']);
   }
 }

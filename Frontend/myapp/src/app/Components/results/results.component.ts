@@ -60,7 +60,9 @@ export class ResultsComponent {
     // Your logic here when title is clicked
     console.log('Title clicked!',item.itemId[0]);
     this.productService.setItemId(item.itemId[0]);
-    this.productService.setProductTitle(item.title[0])
+    this.productService.setProductTitle(item.title[0]);
+    this.productService.setCurrentItem(item);
+    this.productService.detailButtonClicked = false;
     this.router.navigate(['/individual']);
 
   }
@@ -82,6 +84,9 @@ export class ResultsComponent {
     }
   
     return `${truncated}…`;
+  }
+  test():void{
+    this.router.navigate(['/individual']);
   }
   
 

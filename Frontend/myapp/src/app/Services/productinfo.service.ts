@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,29 @@ export class ProductinfoService {
 
   private _productTitle: string | null = "iphone";
 
+  private _currentItem: any = null;
+
+  private _productDetail = new BehaviorSubject<any>(null);  // Using BehaviorSubject to hold the product details
+  public productDetail$ = this._productDetail.asObservable();
+
+  private _similarItems = new BehaviorSubject<any[]>([]);  // Using BehaviorSubject to hold similar items
+  public similarItems$ = this._similarItems.asObservable();  // Expose as Observable for components to subscribe
+
+  private _productImages = new BehaviorSubject<any[]>([]);  // Using BehaviorSubject to hold product images
+  public productImages$ = this._productImages.asObservable();
+
+  public detailButtonClicked: boolean = false;
+
   constructor(private http: HttpClient) { }
+
+  getCurrentItem(): any {
+    return this._currentItem;
+  }
+
+  // method to set the current item
+  setCurrentItem(item: any): void {
+    this._currentItem = item;
+  }
 
   // method to get the itemId
   getItemId(): string | null {
@@ -22,37 +45,62 @@ export class ProductinfoService {
     this._itemId = itemId;
   }
 
-  getProductDetails() {
+  getProductDetails(): Promise<void> {
     const itemId = this.getItemId();
     if (!itemId) {
-      throw new Error("Item ID is not available");
-      }
-    return this.http.get(`http://localhost:3000/product`, {
-      params: {
-        itemid: itemId
-      }
-    });
-  }
-  getSimilarItems() {
-    const itemId = this.getItemId();
-    if (!itemId) {
-      throw new Error("Item ID is not available");
+      return Promise.reject(new Error("Item ID is not available"));  // Reject the promise with an error
     }
-    return this.http.get(`http://localhost:3000/getSimilarItems`, {
-      params: {
-        itemId: itemId
-      }
+    
+    return new Promise<void>((resolve, reject) => {
+      this.http.get(`http://localhost:3000/product`, { params: { itemid: itemId } }).subscribe(
+        data => {
+          if (data) {  // Assuming there will be some structure to verify here
+            this._productDetail.next(data);  // Update the BehaviorSubject with the new product detail
+            resolve();  // Resolve the promise
+          } else {
+            reject();  // Resolve the promise even if data structure is not as expected
+          }
+        }
+      );
     });
   }
-  getProductImages(){
+  getSimilarItems(): Promise<void> {
+    const itemId = this.getItemId();
+    if (!itemId) {
+      return Promise.reject(new Error("Item ID is not available"));  // Reject the promise with an error
+    }
+    
+    return new Promise<void>((resolve, reject) => {
+      this.http.get<any[]>(`http://localhost:3000/getSimilarItems`, { params: { itemId: itemId } }).subscribe(
+        data => {
+          if (data) {  // Check if data is an array (assuming similar items come as an array)
+            this._similarItems.next(data);  // Update the BehaviorSubject with the new list of similar items
+            resolve();  // Resolve the promise
+          } else {
+            console.log("data is null");
+            reject();  // Resolve the promise even if data structure is not as expected
+          }
+        }
+      );
+    });
+  }
+  getProductImages(): Promise<void> {
     const productTitle = this.getProductTitle(); 
     if (!productTitle) {
-      throw new Error("Product Title is not available");
+      return Promise.reject(new Error("Product Title is not available"));
     }
-    return this.http.get(`http://localhost:3000/getProductImages`, {
-      params: {
-        productTitle: productTitle
-      }
+
+    return new Promise<void>((resolve, reject) => {
+      this.http.get<any[]>(`http://localhost:3000/getProductImages`, { params: { productTitle: productTitle } }).subscribe(
+        data => {
+          if (data && Array.isArray(data)) {  // Check if data is an array (assuming images come as an array or similar structure)
+            this._productImages.next(data);  // Update the BehaviorSubject with the new list of product images
+            resolve();  // Resolve the promise
+          } else {
+            reject();  // Resolve the promise even if data structure is not as expected
+          }
+        }
+      );
     });
   }
   // Getter method for productTitle

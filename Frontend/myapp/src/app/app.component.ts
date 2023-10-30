@@ -5,6 +5,7 @@ import { filter } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { SearchService } from './Services/search.service';
 import { MongodbService } from './Services/mongodb.service';
+import { ProductinfoService } from './Services/productinfo.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ export class AppComponent {
   progressBarValue: number = 0; // Progress bar value
   showProgressBar: boolean = false;
 
-  constructor(private fb: FormBuilder, private service: AutocompleteService, private router: Router, private searchService: SearchService,private mongodbService: MongodbService) { }
+  constructor(private fb: FormBuilder, private service: AutocompleteService, private router: Router, private searchService: SearchService,private mongodbService: MongodbService,private productService: ProductinfoService) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -62,13 +63,14 @@ export class AppComponent {
     }
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     this.startProgressBar();
+    this.productService.detailButtonClicked = false;
     if(this.searchForm.get('zipOption')?.value === 'currentlocation'){
       this.searchForm.value.zip = this.getCurrentLocationZip();
     }
     console.log(this.searchForm.value);
-    this.searchService.executeSearch(this.searchForm.value);
+    await this.searchService.executeSearch(this.searchForm.value);
     this.mongodbService.fetchAndUpdateWishlistItems();
     this.stopProgressBar();
     this.router.navigate(['/results']);
@@ -77,7 +79,7 @@ export class AppComponent {
   onReset(event:any): void {
     event.preventDefault();
     this.searchForm.reset({
-      keyword: '',
+      keyword: '', 
       categoryId: '0',
       conditionStates: {
         New: false,

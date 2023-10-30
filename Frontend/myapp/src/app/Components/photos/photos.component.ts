@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ProductinfoService } from 'src/app/Services/productinfo.service';
 
 @Component({
@@ -10,10 +11,12 @@ export class PhotosComponent {
 
   productImages: any[] = [];
 
+  private subscription: Subscription = new Subscription();
+
   constructor(private productService: ProductinfoService) {}
 
   ngOnInit(): void {
-    this.productService.getProductImages().subscribe((data:any)=>{
+    this.subscription = this.productService.productImages$.subscribe((data:any)=>{
       if(data){
         this.productImages = data;
         // console.log(this.productImages);
@@ -33,6 +36,11 @@ export class PhotosComponent {
       return 'col-6';
     }
     return ''; // default return value
+  }
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
   
 

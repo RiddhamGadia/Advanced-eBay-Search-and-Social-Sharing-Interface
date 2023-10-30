@@ -13,7 +13,7 @@ export class SearchService {
 
   constructor(private http : HttpClient) { }
 
-  executeSearch(criteria: any): void {
+  executeSearch(criteria: any): Promise<void> {
     const transformedCriteria = {
       keyword: criteria.keyword,
       buyerpostalcode: criteria.zip,
@@ -24,23 +24,31 @@ export class SearchService {
       categoryId: criteria.categoryId
     };
     
-    this.http.get<any>(`http://localhost:3000/search`, { params: transformedCriteria }).subscribe(data => {
-        if (data && 
-            data.findItemsAdvancedResponse && 
-            data.findItemsAdvancedResponse.length > 0 && 
-            data.findItemsAdvancedResponse[0].searchResult && 
+    return new Promise<void>((resolve, reject) => {
+      this.http.get<any>(`http://localhost:3000/search`, { params: transformedCriteria }).subscribe(
+        data => {
+          if (
+            data &&
+            data.findItemsAdvancedResponse &&
+            data.findItemsAdvancedResponse.length > 0 &&
+            data.findItemsAdvancedResponse[0].searchResult &&
             data.findItemsAdvancedResponse[0].searchResult.length > 0 &&
             data.findItemsAdvancedResponse[0].searchResult[0].item &&
-            data.findItemsAdvancedResponse[0].searchResult[0].item.length > 0) {
-            
+            data.findItemsAdvancedResponse[0].searchResult[0].item.length > 0
+          ) {
             const items = data.findItemsAdvancedResponse[0].searchResult[0].item;
             const processedItems = items.map((item: any) => ({
-                ...item,
-                isInWishlist: false
+              ...item,
+              isInWishlist: false,
             }));
-            console.log('search service',processedItems);
+            console.log('search service', processedItems);
             this._results.next(processedItems);  // Update the BehaviorSubject with the new results
+            resolve();  // Resolve the promise
+          } else {
+            reject();  // Resolve the promise even if there are no results to avoid hanging
+          }
         }
+      );
     });
   }
   private convertCondition(conditionStates: any): string {

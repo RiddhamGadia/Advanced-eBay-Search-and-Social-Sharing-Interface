@@ -1,9 +1,26 @@
-<p>individual works!</p>
-<button type="button" class="btn px-3 my-3" routerLink="/individual/product" routerLinkActive="active">Product</button>
-<button type="button" class="btn px-3 my-3" routerLink="/individual/photos" routerLinkActive="active">Photos</button>
-<button type="button" class="btn px-3 my-3" routerLink="/individual/shipping" routerLinkActive="active">Shipping</button>
-<button type="button" class="btn px-3 my-3" routerLink="/individual/seller" routerLinkActive="active">Seller</button>
-<button type="button" class="btn px-3 my-3" routerLink="/individual/similarproduct" routerLinkActive="active">Similar Product</button>
+<div>
+  <button (click)="backbutton()">Back</button>
+</div>
+<div class="container">
+    <div *ngIf="showProgressBar" class="progress">
+      <div 
+        class="progress-bar progress-bar-striped" 
+        role="progressbar" 
+        [style.width]="progressBarValue + '%'" 
+        [attr.aria-valuenow]="progressBarValue" 
+        aria-valuemin="0" 
+        aria-valuemax="100">
+      </div>
+    </div>
+</div>
+<div class="container" *ngIf="!showProgressBar">
+    <button type="button" class="btn px-3 my-3" routerLink="/individual/product" routerLinkActive="active">Product</button>
+    <button type="button" class="btn px-3 my-3" routerLink="/individual/photos" routerLinkActive="active">Photos</button>
+    <button type="button" class="btn px-3 my-3" routerLink="/individual/shipping" routerLinkActive="active">Shipping</button>
+    <button type="button" class="btn px-3 my-3" routerLink="/individual/seller" routerLinkActive="active">Seller</button>
+    <button type="button" class="btn px-3 my-3" routerLink="/individual/similarproduct" routerLinkActive="active">Similar Product</button>
+</div>
+
 
 
 <router-outlet></router-outlet>

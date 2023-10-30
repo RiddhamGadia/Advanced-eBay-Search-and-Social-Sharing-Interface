@@ -13,7 +13,7 @@ export class ProductComponent {
   constructor(private productService: ProductinfoService) { }
 
   ngOnInit(): void {
-    this.productService.getProductDetails().subscribe((data: any) => {
+    this.productService.productDetail$.subscribe((data: any) => {
       if (data && 'Item' in data) {
         this.product = data.Item;
         console.log(this.product);

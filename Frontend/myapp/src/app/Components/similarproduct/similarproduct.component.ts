@@ -16,7 +16,7 @@ export class SimilarproductComponent {
   constructor(private productService: ProductinfoService,private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.productService.getSimilarItems().subscribe((data:any)=>{
+    this.productService.similarItems$.subscribe((data:any)=>{
       console.log(data);
       if(data && data.getSimilarItemsResponse && data.getSimilarItemsResponse.itemRecommendations && data.getSimilarItemsResponse.itemRecommendations.item) {
         this.results = data.getSimilarItemsResponse.itemRecommendations.item;
