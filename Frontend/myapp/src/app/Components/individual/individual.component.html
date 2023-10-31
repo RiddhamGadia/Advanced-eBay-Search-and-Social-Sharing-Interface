@@ -1,6 +1,12 @@
 <div>
   <button (click)="backbutton()">Back</button>
 </div>
+<!-- Wishlist Button -->
+<td>
+  <button class="btn btn-primary btn-sm btn-light px-3 py-1" name="cart" (click)="toogleIcon()" [ngClass]="{'remove-class': item.isInWishlist}">
+      <span class="material-symbols-outlined img-fluid">{{ item.isInWishlist ? 'remove_shopping_cart' : 'add_shopping_cart' }}</span>
+  </button>
+</td>
 <div class="container">
     <div *ngIf="showProgressBar" class="progress">
       <div 

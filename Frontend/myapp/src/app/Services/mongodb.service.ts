@@ -31,10 +31,15 @@ export class MongodbService {
     });
   }
 
-  fetchAndUpdateWishlistItems(): void {
-    this.http.get<any[]>(`${this.baseUrl}/getAllDocs`).subscribe(items => {
-      const itemIds = items.map((item: any) => item.itemId[0]);
-      this._wishlistItems = new Set(itemIds);
+  fetchAndUpdateWishlistItems(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+        this.http.get<any[]>(`${this.baseUrl}/getAllDocs`).subscribe(
+            items => {
+                const itemIds = items.map((item: any) => item.itemId[0]);
+                this._wishlistItems = new Set(itemIds);
+                resolve();  // resolve the promise when the data is fetched and processed
+            }
+        );
     });
   }
   getWishlistItemsSet(): Set<any> {

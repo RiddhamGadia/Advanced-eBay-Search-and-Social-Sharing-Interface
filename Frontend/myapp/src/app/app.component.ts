@@ -71,7 +71,7 @@ export class AppComponent {
     }
     console.log(this.searchForm.value);
     await this.searchService.executeSearch(this.searchForm.value);
-    this.mongodbService.fetchAndUpdateWishlistItems();
+    await this.mongodbService.fetchAndUpdateWishlistItems();
     this.stopProgressBar();
     this.router.navigate(['/results']);
   }
