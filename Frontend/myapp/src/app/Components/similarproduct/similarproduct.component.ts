@@ -18,16 +18,30 @@ export class SimilarproductComponent {
   constructor(private productService: ProductinfoService,private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.subscription=this.productService.similarItems$.subscribe((data:any)=>{
-      console.log(data);
-      if(data && data.getSimilarItemsResponse && data.getSimilarItemsResponse.itemRecommendations && data.getSimilarItemsResponse.itemRecommendations.item) {
-        this.results = data.getSimilarItemsResponse.itemRecommendations.item;
-        this.originalResults = [...this.results];
-        // console.log(this.results);
-      } else {
-        console.error("Data format incorrect or no items found:");
-      }
-    })
+    if(this.productService.currentPage === "results"){
+      this.subscription=this.productService.similarItems$.subscribe((data:any)=>{
+        console.log(data);
+        if(data && data.getSimilarItemsResponse && data.getSimilarItemsResponse.itemRecommendations && data.getSimilarItemsResponse.itemRecommendations.item) {
+          this.results = data.getSimilarItemsResponse.itemRecommendations.item;
+          this.originalResults = [...this.results];
+          // console.log(this.results);
+        } else {
+          console.error("Data format incorrect or no items found:");
+        }
+      })
+    }
+    else if(this.productService.currentPage === "wishlist"){
+      this.subscription=this.productService.similarItemsWishlist$.subscribe((data:any)=>{
+        console.log(data);
+        if(data && data.getSimilarItemsResponse && data.getSimilarItemsResponse.itemRecommendations && data.getSimilarItemsResponse.itemRecommendations.item) {
+          this.results = data.getSimilarItemsResponse.itemRecommendations.item;
+          this.originalResults = [...this.results];
+          // console.log(this.results);
+        } else {
+          console.error("Data format incorrect or no items found:");
+        }
+      })
+    }
     this.sortForm = this.fb.group({
       sortCategory: ['default'],
       sortOrder: {value: 'ascending', disabled: true}

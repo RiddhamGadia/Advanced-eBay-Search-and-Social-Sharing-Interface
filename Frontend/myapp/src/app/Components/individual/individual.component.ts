@@ -18,19 +18,31 @@ export class IndividualComponent {
 
   ngOnInit(): void {
     console.log('Individual component loaded');
+    if(this.productService.currentPage === "results"){
     this.item = this.productService.getCurrentItem();
+    }else if(this.productService.currentPage === "wishlist"){
+      this.item = this.productService.getwishlistItem();
+    }
     this.oncallperform();
   }
 
   async oncallperform(): Promise<void> {
-    if(!this.productService.detailButtonClicked){
+    console.log('your are on ',this.productService.currentPage);
+    if(this.productService.currentPage === "results" && !this.productService.detailButtonClickedResult){
       this.startProgressBar();
       await this.productService.getProductDetails();
       await this.productService.getSimilarItems();
       await this.productService.getProductImages();
     }
+    else if(this.productService.currentPage === "wishlist" && !this.productService.detailButtonClickedWishlist){
+      this.startProgressBar();
+      await this.productService.getProductDetailsWishlist();
+      await this.productService.getSimilarItemsWishlist();
+      await this.productService.getProductImagesWishlist();
+    }
     this.stopProgressBar();
     this.router.navigate(['/individual/product']);
+    
   }
   startProgressBar(): void {
     this.showProgressBar = true;
@@ -43,12 +55,19 @@ export class IndividualComponent {
   }
 
   backbutton(): void {
-    
+    if(this.productService.currentPage === "results"){
     this.router.navigate(['/results']);
+    }else if(this.productService.currentPage === "wishlist"){
+      this.router.navigate(['/wishlist']);
+    }
   }
 
   ngOnDestroy(): void {
-    this.productService.detailButtonClicked = true;
+    if(this.productService.currentPage === "results"){
+    this.productService.detailButtonClickedResult = true;
+    }else if(this.productService.currentPage === "wishlist"){
+    this.productService.detailButtonClickedWishlist = true;
+    }
   }
 
   toogleIcon(): void {

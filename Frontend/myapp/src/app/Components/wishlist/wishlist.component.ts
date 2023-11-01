@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MongodbService } from 'src/app/Services/mongodb.service';
+import { ProductinfoService } from 'src/app/Services/productinfo.service';
 import { SearchService } from 'src/app/Services/search.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class WishlistComponent {
   totalPrice: string = '0';
   private subscription: Subscription = new Subscription();
 
-  constructor(private mongodbService: MongodbService,private searchService: SearchService,private router: Router) { }
+  constructor(private mongodbService: MongodbService,private searchService: SearchService,private router: Router, private productService: ProductinfoService) { }
 
   ngOnInit(): void {
     this.subscription=this.mongodbService.getAllDocuments().subscribe({
@@ -82,11 +83,21 @@ export class WishlistComponent {
     }
   }
   test():void{
+    this.productService.currentPage = "wishlist";
     this.router.navigate(['/individual']);
   }
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+  titleClick(item:any){
+    console.log('Title clicked!',item.itemId[0]);
+    this.productService.currentPage = "wishlist";
+    this.productService.setwishlistItemId(item.itemId[0]);
+    this.productService.setwishlistProductTitle(item.title[0]);
+    this.productService.setwishlistItem(item);
+    this.productService.detailButtonClickedWishlist = false;
+    this.router.navigate(['/individual']);
   }
 }

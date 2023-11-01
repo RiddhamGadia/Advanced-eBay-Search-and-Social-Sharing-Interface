@@ -16,6 +16,7 @@ export class PhotosComponent {
   constructor(private productService: ProductinfoService) {}
 
   ngOnInit(): void {
+    if(this.productService.currentPage === "results"){
     this.subscription = this.productService.productImages$.subscribe((data:any)=>{
       if(data){
         this.productImages = data;
@@ -25,6 +26,17 @@ export class PhotosComponent {
         console.error("Data format incorrect:", data);
       }
     })
+  }else if(this.productService.currentPage === "wishlist"){
+    this.subscription = this.productService.productImagesWishlist$.subscribe((data:any)=>{
+      if(data){
+        this.productImages = data;
+        // console.log(this.productImages);
+      }
+      else{
+        console.error("Data format incorrect:", data);
+      }
+    })
+  }
   }
 
   getImageClass(imagePath: string): string {

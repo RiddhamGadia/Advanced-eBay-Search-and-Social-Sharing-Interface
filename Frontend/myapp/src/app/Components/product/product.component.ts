@@ -16,6 +16,7 @@ export class ProductComponent {
   constructor(private productService: ProductinfoService) { }
 
   ngOnInit(): void {
+    if(this.productService.currentPage === "results"){
     this.subscription=this.productService.productDetail$.subscribe((data: any) => {
       if (data && 'Item' in data) {
         this.product = data.Item;
@@ -25,6 +26,19 @@ export class ProductComponent {
         // Handle this scenario accordingly. Maybe show a user-friendly message or retry the request.
       }
     });
+  }
+    else if(this.productService.currentPage === "wishlist"){
+      console.log('enterd wishlist');
+      this.subscription=this.productService.productDetailWishlist$.subscribe((data: any) => {
+        if (data && 'Item' in data) {
+          this.product = data.Item;
+          console.log(this.product);
+        } else {
+          console.error("Data format incorrect:", data);
+          // Handle this scenario accordingly. Maybe show a user-friendly message or retry the request.
+        }
+      });
+    }
   }
   ngOnDestroy(): void {
     if (this.subscription) {

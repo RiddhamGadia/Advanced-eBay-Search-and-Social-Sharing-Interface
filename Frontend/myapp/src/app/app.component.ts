@@ -65,7 +65,9 @@ export class AppComponent {
 
   async onSubmit(): Promise<void> {
     this.startProgressBar();
-    this.productService.detailButtonClicked = false;
+    this.productService.detailButtonClickedResult = false;
+    this.productService.detailButtonClickedWishlist = false;
+    this.productService.currentPage = "";
     if(this.searchForm.get('zipOption')?.value === 'currentlocation'){
       this.searchForm.value.zip = this.getCurrentLocationZip();
     }

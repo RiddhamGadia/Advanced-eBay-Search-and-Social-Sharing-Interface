@@ -62,10 +62,11 @@ export class ResultsComponent {
   performTitleAction(item:any): void {
     // Your logic here when title is clicked
     console.log('Title clicked!',item.itemId[0]);
+    this.productService.currentPage = "results";
     this.productService.setItemId(item.itemId[0]);
     this.productService.setProductTitle(item.title[0]);
     this.productService.setCurrentItem(item);
-    this.productService.detailButtonClicked = false;
+    this.productService.detailButtonClickedResult = false;
     this.router.navigate(['/individual']);
 
   }
@@ -89,6 +90,7 @@ export class ResultsComponent {
     return `${truncated}…`;
   }
   test():void{
+    this.productService.currentPage = "results";
     this.router.navigate(['/individual']);
   }
   ngOnDestroy(): void {
