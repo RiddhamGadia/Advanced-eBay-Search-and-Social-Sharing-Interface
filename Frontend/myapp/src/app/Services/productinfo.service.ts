@@ -37,7 +37,7 @@ export class ProductinfoService {
 
   public currentPage: string = "";
 
-  private _wishlistItemId: string | null = null;
+  private _wishlistItemId: string | null = "404568857199";
   private _wishlistItem: any = null;
   private _wishlistProductTitle: string | null = null;
 

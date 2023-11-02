@@ -64,6 +64,7 @@ export class AppComponent {
   }
 
   async onSubmit(): Promise<void> {
+    this.router.navigate(['/']);
     this.startProgressBar();
     this.productService.detailButtonClickedResult = false;
     this.productService.detailButtonClickedWishlist = false;

@@ -12,7 +12,7 @@ export class SimilarproductComponent {
   results:any[]=[];
   originalResults: any[] = [];
   sortForm!: FormGroup;
-  displayLimit = 10;
+  displayLimit = 5;
   private subscription: Subscription = new Subscription();
 
   constructor(private productService: ProductinfoService,private fb: FormBuilder) { }
@@ -113,10 +113,10 @@ export class SimilarproductComponent {
   //  console.log(this.results);
   }
   toggleDisplayLimit() {
-    if (this.displayLimit === 10) {
-      this.displayLimit = this.results.length; // Show all results
+    if (this.displayLimit === 5) {
+      this.displayLimit = 10; // Show all results
     } else {
-      this.displayLimit = 10; // Show only first 10 results
+      this.displayLimit = 5; // Show only first 10 results
     }
   }
   ngOnDestroy(): void {
