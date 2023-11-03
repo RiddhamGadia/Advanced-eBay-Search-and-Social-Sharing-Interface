@@ -1,0 +1,9 @@
+.img-container {
+    height: auto;
+    display: inline-block;
+}
+.img-fluid {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}

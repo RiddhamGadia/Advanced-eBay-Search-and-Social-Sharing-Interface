@@ -20,7 +20,7 @@ export class PhotosComponent {
     this.subscription = this.productService.productImages$.subscribe((data:any)=>{
       if(data){
         this.productImages = data;
-        // console.log(this.productImages);
+        console.log(this.productImages);
       }
       else{
         console.error("Data format incorrect:", data);
@@ -39,16 +39,16 @@ export class PhotosComponent {
   }
   }
 
-  getImageClass(imagePath: string): string {
-    const index = this.productImages.indexOf(imagePath);
-    if (index === 3 || index === 4) {
-      return 'col-3';
-    }
-    if (index === 5) {
-      return 'col-6';
-    }
-    return ''; // default return value
-  }
+  // getImageClass(imagePath: string): string {
+  //   const index = this.productImages.indexOf(imagePath);
+  //   if (index === 3 || index === 4) {
+  //     return 'col-3';
+  //   }
+  //   if (index === 5) {
+  //     return 'col-6';
+  //   }
+  //   return ''; // default return value
+  // }
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();

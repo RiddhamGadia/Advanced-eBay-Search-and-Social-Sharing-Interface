@@ -1,1 +1,41 @@
-<p>seller works!</p>
+<div class="table-responsive container">
+    <table class="table table-striped table-dark table-hover">
+        <tbody>
+          <!-- Display shipping cost -->
+          <tr>
+              <td>Feedback Score</td>
+              <td>{{ item.Seller.FeedbackScore}}</td>
+          </tr>
+
+          <!-- Display shipping locations -->
+          <tr>
+              <td>Popularity</td>
+              <td>{{ item.Seller.PositiveFeedbackPercent}}<td>
+          </tr>
+
+          <!-- Display handling time -->
+          <tr>
+              <td>Feedback Rating Star</td>
+              <td>{{ item.Seller.FeedbackRatingStar}}</td>
+          </tr>
+
+          <!-- Display expedited shipping -->
+          <tr>
+              <td>Top Rated</td>
+              <td>{{ item.Seller.TopRatedSeller}}</td>
+          </tr>
+
+          <!-- Display one day shipping -->
+          <tr>
+              <td>Store Name</td>
+              <td>{{ item.Storefront.StoreName}}</td>
+          </tr>
+
+          <!-- Display return accepted -->
+          <tr>
+              <td>Buy Product At</td>
+              <td>{{ item.Storefront.StoreURL}}</td>
+          </tr>
+        </tbody>
+    </table>
+</div>

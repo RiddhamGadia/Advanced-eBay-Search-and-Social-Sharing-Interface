@@ -1,19 +1,17 @@
-<div class="container mt-5">
+<div class="container mt-3">
     <div class="row">
         <!-- First Row -->
-        <div *ngFor="let image of productImages?.slice(0,3)" class="col-4">
+        <div *ngFor="let image of productImages?.slice(0,3)" class="col-4 img-container">
             <img [src]="image?.link" class="img-fluid mb-3" alt="Product Image">
         </div>
 
         <!-- Second Row -->
-        <ng-container *ngFor="let image of productImages?.slice(3,6)">
-            <div [class]="getImageClass(image)">
-                <img [src]="image?.link" class="img-fluid mb-3" alt="Product Image">
-            </div>
-        </ng-container>
+        <div *ngFor="let image of productImages?.slice(3,6)" class="col-4 img-container">
+            <img [src]="image?.link" class="img-fluid mb-3" alt="Product Image">
+        </div>
 
         <!-- Third Row -->
-        <div *ngFor="let image of productImages?.slice(6,9)" class="col-6">
+        <div *ngFor="let image of productImages?.slice(6,8)" class="col-4 img-container">
             <img [src]="image?.link" class="img-fluid mb-3" alt="Product Image">
         </div>
     </div>

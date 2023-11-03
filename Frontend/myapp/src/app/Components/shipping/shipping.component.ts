@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ProductinfoService } from 'src/app/Services/productinfo.service';
 
 @Component({
   selector: 'app-shipping',
@@ -8,10 +9,20 @@ import { Subscription } from 'rxjs';
 })
 export class ShippingComponent {
   private subscription: Subscription = new Subscription();
+  item: any = null;
+  constructor(private productService: ProductinfoService) { }
 
+  ngOnInit(): void {
+    if(this.productService.currentPage === "results"){
+    this.item=this.productService.getCurrentItem();
+  }
+    else if(this.productService.currentPage === "wishlist"){
+     this.item=this.productService.getwishlistItem();
+    }
+  }
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
-  }
+}
 }

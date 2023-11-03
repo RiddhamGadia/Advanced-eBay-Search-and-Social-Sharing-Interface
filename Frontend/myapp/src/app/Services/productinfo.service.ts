@@ -172,9 +172,8 @@ export class ProductinfoService {
     if (!productTitle) {
       return Promise.reject(new Error("Product Title is not available"));
     }
-    const encodedTitle = encodeURIComponent(productTitle);  // Encode the product title to be sent as a query parameter
     return new Promise<void>((resolve, reject) => {
-      this.http.get<any[]>(`http://localhost:3000/getProductImages`, { params: { productTitle: encodedTitle } }).subscribe(
+      this.http.get<any[]>(`http://localhost:3000/getProductImages`, { params: { productTitle: productTitle } }).subscribe(
         data => {
           if (data && Array.isArray(data)) {  // Check if data is an array (assuming images come as an array or similar structure)
             this._productImages.next(data);  // Update the BehaviorSubject with the new list of product images
@@ -191,9 +190,8 @@ export class ProductinfoService {
     if (!productTitle) {
       return Promise.reject(new Error("Product Title is not available"));
     }
-    const encodedTitle = encodeURIComponent(productTitle);
     return new Promise<void>((resolve, reject) => {
-      this.http.get<any[]>(`http://localhost:3000/getProductImages`, { params: { productTitle: encodedTitle } }).subscribe(
+      this.http.get<any[]>(`http://localhost:3000/getProductImages`, { params: { productTitle: productTitle } }).subscribe(
         data => {
           if (data && Array.isArray(data)) {  // Check if data is an array (assuming images come as an array or similar structure)
             this._productImagesWishlist.next(data);  // Update the BehaviorSubject with the new list of product images
