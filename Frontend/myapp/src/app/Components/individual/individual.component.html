@@ -23,6 +23,9 @@
         </span>Back</button>
     </div>
     <div class="col text-end">
+      <button class="btn btn-primary btn-sm btn-light facebook" name="cart" (click)="facebookShare()">
+        <img src="../../../assets/facebook.png" alt="facebook">
+    </button>
       <button class="btn btn-primary btn-sm btn-light px-3 py-1" name="cart" (click)="toogleIcon()" [ngClass]="{'remove-class': item.isInWishlist}">
         <span class="material-symbols-outlined img-fluid">{{ item.isInWishlist ? 'remove_shopping_cart' : 'add_shopping_cart' }}</span>
     </button>

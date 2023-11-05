@@ -21,6 +21,7 @@ export class IndividualComponent {
     console.log('Individual component loaded');
     if(this.productService.currentPage === "results"){
     this.item = this.productService.getCurrentItem();
+    console.log('Item:', this.item);
     this.title = this.productService.getProductTitle();
     }else if(this.productService.currentPage === "wishlist"){
       this.item = this.productService.getwishlistItem();
@@ -97,6 +98,15 @@ export class IndividualComponent {
         }
       });
     }
+  }
+  facebookShare(): void {
+    const productName = encodeURIComponent(this.item.title); // Replace with actual product name property
+    const price = encodeURIComponent(this.item.sellingStatus[0].currentPrice[0].__value__); // Replace with actual product price property
+    const link = encodeURIComponent(this.item.viewItemURLForNaturalSearch); // Replace with actual product link property
+    const shareText = `Buy ${productName} at ${price} from LINK below.`;
+    const facebookShareUrl = `https://www.facebook.com/dialog/feed?app_id=879910763798028&display=page&link=${link}&redirect_uri=${link}&quote=${shareText}`;
+
+    window.open(facebookShareUrl, '_blank');
   }
 
 
