@@ -2,39 +2,64 @@
     <table class="table table-striped table-dark table-hover">
         <tbody>
           <!-- Display shipping cost -->
-          <tr>
+          <tr *ngIf="item?.shippingInfo?.[0]?.shippingServiceCost?.[0]?.__value__">
               <td>Shipping Cost</td>
               <td>{{ item.shippingInfo[0].shippingServiceCost[0].__value__ | currency:'USD' }}</td>
           </tr>
 
           <!-- Display shipping locations -->
-          <tr>
+          <tr *ngIf="item?.shippingInfo?.[0]?.shipToLocations?.[0]">
               <td>Shipping Locations</td>
               <td>{{ item.shippingInfo[0].shipToLocations[0] }}</td>
           </tr>
 
           <!-- Display handling time -->
-          <tr>
+          <tr *ngIf="item?.shippingInfo?.[0]?.handlingTime?.[0]">
               <td>Handling Time</td>
-              <td>{{ item.shippingInfo[0].handlingTime[0] }} days</td>
+              <td>
+                {{ item.shippingInfo[0].handlingTime[0] }}
+                {{ item.shippingInfo[0].handlingTime[0] === '1' || item.shippingInfo[0].handlingTime[0] === '0' ? 'Day' : 'Days' }}
+            </td>
           </tr>
 
           <!-- Display expedited shipping -->
-          <tr>
-              <td>Expedited Shipping</td>
-              <td>{{ item.shippingInfo[0].expeditedShipping[0]}}</td>
-          </tr>
+          <tr *ngIf="item?.shippingInfo?.[0]?.expeditedShipping?.[0]">
+            <td>Expedited Shipping</td>
+            <td>
+                <span class="material-symbols-outlined" [ngClass]="{
+                    'check-icon': item.shippingInfo[0].expeditedShipping[0] === 'true', 
+                    'close-icon': item.shippingInfo[0].expeditedShipping[0] !== 'true'
+                }">
+                    {{ item.shippingInfo[0].expeditedShipping[0] === 'true' ? 'check' : 'close' }}
+                </span>
+            </td>
+        </tr>
 
           <!-- Display one day shipping -->
-          <tr>
+          <tr *ngIf="item?.shippingInfo?.[0]?.oneDayShippingAvailable?.[0]">
               <td>One Day Shipping</td>
-              <td>{{ item.shippingInfo[0].oneDayShippingAvailable[0]}}</td>
+              <td>
+                <span class = "material-symbols-outlined" [ngClass]="{
+                    'check-icon material-symbols-outlined': item.shippingInfo[0].oneDayShippingAvailable[0] === 'true', 
+                    'close-icon material-symbols-outlined': item.shippingInfo[0].oneDayShippingAvailable[0] !== 'true'
+                  }">
+                    {{ item.shippingInfo[0].oneDayShippingAvailable[0] === 'true' ? 'check' : 'close' }}
+                  </span>
+              </td>
           </tr>
 
           <!-- Display return accepted -->
-          <tr>
+          <tr *ngIf="item?.returnsAccepted?.[0]">
               <td>Return Accepted</td>
-              <td>{{ item.returnsAccepted[0]}}</td>
+              <td>
+                <span [ngClass]="{
+                    'check-icon material-symbols-outlined': item.returnsAccepted[0] === 'true', 
+                    'close-icon material-symbols-outlined': item.returnsAccepted[0] !== 'true'
+                  }">
+                    {{ item.returnsAccepted[0] === 'true' ? 'check' : 'close' }}
+                  </span>
+              </td>
+              
           </tr>
         </tbody>
     </table>

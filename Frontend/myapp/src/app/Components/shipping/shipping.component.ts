@@ -15,6 +15,7 @@ export class ShippingComponent {
   ngOnInit(): void {
     if(this.productService.currentPage === "results"){
     this.item=this.productService.getCurrentItem();
+    console.log(this.item);
   }
     else if(this.productService.currentPage === "wishlist"){
      this.item=this.productService.getwishlistItem();
@@ -24,5 +25,5 @@ export class ShippingComponent {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
-}
+  }
 }
