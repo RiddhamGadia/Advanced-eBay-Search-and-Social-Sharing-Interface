@@ -18,7 +18,9 @@
 <div class="container" *ngIf="!showProgressBar">
   <div class="row">
     <div class="col text-start">
-      <button (click)="backbutton()">Back</button>
+      <button class="btn" (click)="backbutton()"><span class="material-symbols-outlined style-icon">
+        chevron_left
+        </span>Back</button>
     </div>
     <div class="col text-end">
       <button class="btn btn-primary btn-sm btn-light px-3 py-1" name="cart" (click)="toogleIcon()" [ngClass]="{'remove-class': item.isInWishlist}">

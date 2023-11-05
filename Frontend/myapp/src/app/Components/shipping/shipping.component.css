@@ -4,3 +4,8 @@
 .check-icon{
     color: green;
 }
+@media (min-width: 768px) {
+    .col-width {
+      width: 35%;
+    }
+  }

@@ -17,6 +17,7 @@ import { ShippingComponent } from './Components/shipping/shipping.component';
 import { SellerComponent } from './Components/seller/seller.component';
 import { SimilarproductComponent } from './Components/similarproduct/similarproduct.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import {RoundProgressModule} from 'angular-svg-round-progressbar';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatInputModule,
     HttpClientModule,
     MatProgressBarModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    RoundProgressModule
   ],
   providers: [],
   bootstrap: [AppComponent]

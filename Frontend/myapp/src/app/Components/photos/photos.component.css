@@ -7,3 +7,6 @@
     max-width: 100%;
     height: auto;
 }
+img{
+    border: 12px solid black;
+}
