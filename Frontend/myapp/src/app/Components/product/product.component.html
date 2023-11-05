@@ -10,9 +10,9 @@
             </td> 
               <!-- Assuming PictureURL is an array and you're showing the first image as an example -->
           </tr>
-          <tr *ngIf="product?.currentPrice?.Value">
+          <tr *ngIf="product?.CurrentPrice?.Value">
               <td>Price</td>
-              <td>{{ product.currentPrice?.Value | currency:'USD' }}</td>
+              <td>{{ product.CurrentPrice?.Value | currency:'USD' }}</td>
           </tr>
           <tr *ngIf="product?.Location">
               <td>Location</td>
