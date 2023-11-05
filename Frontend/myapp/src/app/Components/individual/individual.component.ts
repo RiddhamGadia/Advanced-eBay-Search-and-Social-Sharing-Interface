@@ -13,6 +13,7 @@ export class IndividualComponent {
   progressBarValue: number = 0; // Progress bar value
   showProgressBar: boolean = true;
   item: any = null;
+  title: any = "my text";
 
   constructor(private router: Router,private productService: ProductinfoService, private mongodbService: MongodbService){}
 
@@ -20,8 +21,10 @@ export class IndividualComponent {
     console.log('Individual component loaded');
     if(this.productService.currentPage === "results"){
     this.item = this.productService.getCurrentItem();
+    this.title = this.productService.getProductTitle();
     }else if(this.productService.currentPage === "wishlist"){
       this.item = this.productService.getwishlistItem();
+      this.title = this.productService.getwishlistProductTitle();
     }
     this.oncallperform();
   }

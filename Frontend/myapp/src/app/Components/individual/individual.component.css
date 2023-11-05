@@ -8,3 +8,6 @@
     color: white !important;  /* Making text color white for visibility */
     border: #212529;
 }
+.remove-class{
+  color: #a68013;
+}
