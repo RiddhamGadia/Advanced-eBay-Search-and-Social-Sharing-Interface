@@ -43,7 +43,7 @@ export class AppComponent {
         freeShipping: [false]
       }),
       distance: [10], // default value is set to 10
-      zip: ['',[Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
+      zip: ['',[Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(5), Validators.maxLength(5)]],
       zipOption: ['currentlocation',Validators.required],
     });
     this.searchForm.get('zip')?.valueChanges

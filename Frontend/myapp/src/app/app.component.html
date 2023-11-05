@@ -87,8 +87,12 @@
       </div>
       <div class="row mt-3">
         <div class="col-md-9">
-          <button class="btn btn-primary btn-sm col-3 me-4 btn-light py-2" [disabled]="!searchForm.valid" name="submit" type="submit"><i class="bi bi-search p-1"></i>Search</button>
-          <button class="btn btn-primary btn-sm col-3 me-4 btn-light py-2" name="reset" type="reset" (click)="onReset($event)"><i class="bi bi-search p-1"></i>Clear </button>
+          <button class="btn btn-primary btn-sm col-3 me-4 btn-light py-2" [disabled]="!searchForm.valid" name="submit" type="submit"><span class="material-symbols-outlined icon-align">
+            search
+            </span> Search</button>
+          <button class="btn btn-primary btn-sm col-3 me-4 btn-light py-2 " name="reset" type="reset" (click)="onReset($event)"><span class="material-symbols-outlined icon-align">
+            clear_all
+            </span> Clear</button>
         </div>
           
       </div>

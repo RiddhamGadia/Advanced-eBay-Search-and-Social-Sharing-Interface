@@ -20,3 +20,6 @@
     color: white !important;  /* Making text color white for visibility */
     border: #212529;
 }
+.icon-align{
+    vertical-align: middle;
+}

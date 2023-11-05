@@ -33,3 +33,9 @@
 .pagination-format{
     text-align: center;
 }
+.icon-align{
+    vertical-align: middle;
+}
+.btn-style{
+    border: 0px;
+}
