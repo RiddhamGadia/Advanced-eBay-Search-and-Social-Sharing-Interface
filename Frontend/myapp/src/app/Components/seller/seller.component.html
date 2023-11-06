@@ -14,10 +14,10 @@
           <!-- Display Popularity if present -->
           <tr *ngIf="item?.Seller && item.Seller?.PositiveFeedbackPercent">
               <td class="d-sm-table-cell d-block col-width">Popularity</td>
-              <td class="d-sm-table-cell d-block"><round-progress 
+              <td class="d-sm-table-cell d-block" class="progress-container"><round-progress 
                 [max]="100"
                 [current]="item.Seller.PositiveFeedbackPercent" [color]="'#008000'" class="progress-width">
-            </round-progress></td>
+            </round-progress><span class="item-dis">{{item?.Seller.PositiveFeedbackPercent}}</span></td>
           </tr>
 
           <!-- Display Feedback Rating Star if present -->
