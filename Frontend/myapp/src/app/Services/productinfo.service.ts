@@ -41,6 +41,9 @@ export class ProductinfoService {
   private _wishlistItem: any = null;
   private _wishlistProductTitle: string | null = null;
 
+  public facebookItemResults: any = null;
+  public facebookItemWishlist: any = null;
+
   constructor(private http: HttpClient) { }
 
   getwishlistProductTitle(): string | null {

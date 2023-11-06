@@ -100,12 +100,18 @@ export class IndividualComponent {
     }
   }
   facebookShare(): void {
-    const productName = encodeURIComponent(this.item.title); // Replace with actual product name property
-    const price = encodeURIComponent(this.item.sellingStatus[0].currentPrice[0].__value__); // Replace with actual product price property
-    const link = encodeURIComponent(this.item.viewItemURLForNaturalSearch); // Replace with actual product link property
+    let item = null;
+    if(this.productService.currentPage === "results"){
+      item = this.productService.facebookItemResults;
+    }else if(this.productService.currentPage === "wishlist"){
+      item = this.productService.facebookItemWishlist;
+    }
+    const productName = encodeURIComponent(item.Title); // Replace with actual product name property
+    const price = encodeURIComponent(item.CurrentPrice.Value); // Replace with actual product price property
+    const link = encodeURIComponent(item.ViewItemURLForNaturalSearch); // Replace with actual product link property
     const shareText = `Buy ${productName} at ${price} from LINK below.`;
-    const facebookShareUrl = `https://www.facebook.com/dialog/feed?app_id=879910763798028&display=page&link=${link}&redirect_uri=${link}&quote=${shareText}`;
-
+    const facebookShareUrl = `https://www.facebook.com/dialog/share?app_id=3181652005476138&display=popup&href=${link}&redirect_uri=${link}&quote=${shareText}`;
+    console.log('Facebook share URL:', facebookShareUrl);
     window.open(facebookShareUrl, '_blank');
   }
 

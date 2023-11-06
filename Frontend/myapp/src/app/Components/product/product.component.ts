@@ -21,6 +21,7 @@ export class ProductComponent {
       if (data && 'Item' in data) {
         this.product = data.Item;
         console.log(this.product);
+        this.productService.facebookItemResults = this.product;
       } else {
         console.error("Data format incorrect:", data);
         // Handle this scenario accordingly. Maybe show a user-friendly message or retry the request.
@@ -33,6 +34,7 @@ export class ProductComponent {
         if (data && 'Item' in data) {
           this.product = data.Item;
           console.log(this.product);
+          this.productService.facebookItemWishlist = this.product;
         } else {
           console.error("Data format incorrect:", data);
           // Handle this scenario accordingly. Maybe show a user-friendly message or retry the request.
