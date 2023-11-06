@@ -20,6 +20,7 @@ export class WishlistComponent {
   constructor(private mongodbService: MongodbService,private searchService: SearchService,private router: Router, private productService: ProductinfoService) { }
 
   ngOnInit(): void {
+    this.productService.isActive = false;
     this.subscription=this.mongodbService.getAllDocuments().subscribe({
       next: (items: any[]) => {
         this.wishlistItems = items;
@@ -95,6 +96,7 @@ export class WishlistComponent {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+    this.productService.isActive = true;
   }
   titleClick(item:any){
     console.log('Title clicked!',item.itemId[0]);

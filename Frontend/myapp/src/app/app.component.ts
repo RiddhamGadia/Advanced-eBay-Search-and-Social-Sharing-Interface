@@ -154,5 +154,7 @@ export class AppComponent {
     this.showProgressBar = false;
     this.progressBarValue = 0;
   }
-  
+  isActive(): boolean {
+    return this.productService.isActive;
+  }
 }
