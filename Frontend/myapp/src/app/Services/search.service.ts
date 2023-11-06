@@ -43,7 +43,7 @@ export class SearchService {
             this._results.next(processedItems);  // Update the BehaviorSubject with the new results
             resolve();  // Resolve the promise
           } else {
-            reject();  // Resolve the promise even if there are no results to avoid hanging
+            resolve();  // Resolve the promise even if there are no results to avoid hanging
           }
         }
       );

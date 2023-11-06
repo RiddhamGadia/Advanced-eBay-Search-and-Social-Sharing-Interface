@@ -106,7 +106,7 @@ export class ProductinfoService {
             this._productDetail.next(data);  // Update the BehaviorSubject with the new product detail
             resolve();  // Resolve the promise
           } else {
-            reject();  // Resolve the promise even if data structure is not as expected
+            resolve();  // Resolve the promise even if data structure is not as expected
           }
         }
       );
@@ -126,7 +126,7 @@ export class ProductinfoService {
             this._productDetailWishlist.next(data);  // Update the BehaviorSubject with the new product detail
             resolve();  // Resolve the promise
           } else {
-            reject();  // Resolve the promise even if data structure is not as expected
+            resolve();  // Resolve the promise even if data structure is not as expected
           }
         }
       );
@@ -146,7 +146,7 @@ export class ProductinfoService {
             resolve();  // Resolve the promise
           } else {
             console.log("data is null");
-            reject();  // Resolve the promise even if data structure is not as expected
+            resolve();  // Resolve the promise even if data structure is not as expected
           }
         }
       );
@@ -166,7 +166,7 @@ export class ProductinfoService {
             resolve();  // Resolve the promise
           } else {
             console.log("data is null");
-            reject();  // Resolve the promise even if data structure is not as expected
+            resolve();  // Resolve the promise even if data structure is not as expected
           }
         }
       );
@@ -184,7 +184,7 @@ export class ProductinfoService {
             this._productImages.next(data);  // Update the BehaviorSubject with the new list of product images
             resolve();  // Resolve the promise
           } else {
-            reject();  // Resolve the promise even if data structure is not as expected
+            resolve();  // Resolve the promise even if data structure is not as expected
           }
         }
       );
@@ -202,7 +202,7 @@ export class ProductinfoService {
             this._productImagesWishlist.next(data);  // Update the BehaviorSubject with the new list of product images
             resolve();  // Resolve the promise
           } else {
-            reject();  // Resolve the promise even if data structure is not as expected
+            resolve();  // Resolve the promise even if data structure is not as expected
           }
         }
       );
