@@ -7,6 +7,7 @@
           <!-- Display Feedback Score if present -->
           <tr *ngIf="item?.Seller && item.Seller?.FeedbackScore">
               <td class="d-sm-table-cell d-block col-width">Feedback Score</td>
+              <!-- <span class="material-icons">face</span> -->
               <td class="d-sm-table-cell d-block">{{ item.Seller.FeedbackScore }}</td>
           </tr>
 
@@ -25,13 +26,13 @@
             <td class="d-sm-table-cell d-block">
               <span *ngIf="processFeedbackScore(item.Seller.FeedbackScore) >= 10000; else starBorder" 
                     [ngStyle]="{'color': removeShootingFromString(item.Seller.FeedbackRatingStar)}" 
-                    class="material-symbols-outlined">
+                    class="material-icons">
                 stars
               </span>
               <ng-template #starBorder>
                 <span *ngIf="processFeedbackScore(item.Seller.FeedbackScore) > 9; else notApplicable" 
                       [ngStyle]="{'color': removeShootingFromString(item.Seller.FeedbackRatingStar)}" 
-                      class="material-symbols-outlined">
+                      class="material-icons">
                   star_border
                 </span>
               </ng-template>
