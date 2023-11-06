@@ -15,6 +15,7 @@ export class WishlistComponent {
   wishlistItems: any[] = [];
   totalPrice: string = '0';
   private subscription: Subscription = new Subscription();
+  selectedItemId: any = "";
 
   constructor(private mongodbService: MongodbService,private searchService: SearchService,private router: Router, private productService: ProductinfoService) { }
 
@@ -23,6 +24,7 @@ export class WishlistComponent {
       next: (items: any[]) => {
         this.wishlistItems = items;
         this.getTotalPrice();
+        this.selectedItemId = this.productService.getwishlistItemId();
       },
       error: (error) => {
         console.error('Error fetching wishlist items:', error);
@@ -31,6 +33,9 @@ export class WishlistComponent {
   }
 
   removeFromWishlist(item: any): void {
+    if(item.itemId[0]==this.selectedItemId){
+      this.productService.setwishlistItemId("");
+    }
     this.mongodbService.removeFromWishlist(item.itemId[0]);
     this.mongodbService.removeDocument(item.itemId).subscribe({
       next: (response) => {
@@ -99,5 +104,8 @@ export class WishlistComponent {
     this.productService.setwishlistItem(item);
     this.productService.detailButtonClickedWishlist = false;
     this.router.navigate(['/individual']);
+  }
+  isItemIdNull(): boolean {
+    return this.productService.getwishlistItemId() === "";
   }
 }

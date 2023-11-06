@@ -30,3 +30,9 @@
 .wrap{
     text-wrap: nowrap;
 }
+.icon-align{
+    vertical-align: middle;
+}
+.btn-style{
+    border: 0px;
+}

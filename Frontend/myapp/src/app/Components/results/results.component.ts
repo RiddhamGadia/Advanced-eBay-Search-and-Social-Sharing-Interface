@@ -16,6 +16,7 @@ export class ResultsComponent {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   wishlistItemIds: Set<string> = new Set();
+  selectedItemId: any = "";
 
   private subscription: Subscription = new Subscription();
 
@@ -28,6 +29,7 @@ export class ResultsComponent {
         item.isInWishlist = this.wishlistItemIds.has(item.itemId[0]);
       });
       this.results = items;
+      this.selectedItemId = this.productService.getItemId();
     });
   }
   
@@ -97,6 +99,9 @@ export class ResultsComponent {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+  isItemIdNull(): boolean {
+    return this.productService.getItemId() === "";
   }
 
 }

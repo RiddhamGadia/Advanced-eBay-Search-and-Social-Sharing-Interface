@@ -7,9 +7,9 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ProductinfoService {
 
-  private _itemId: string  | null = "404568857199"; //chagne this to null
+  private _itemId: string  | null = ""; //chagne this to null
 
-  private _productTitle: string | null = "iphone";
+  private _productTitle: string | null = "";
 
   private _currentItem: any = null;
 
@@ -37,7 +37,7 @@ export class ProductinfoService {
 
   public currentPage: string = "";
 
-  private _wishlistItemId: string | null = "404568857199";
+  private _wishlistItemId: string | null = "";
   private _wishlistItem: any = null;
   private _wishlistProductTitle: string | null = null;
 

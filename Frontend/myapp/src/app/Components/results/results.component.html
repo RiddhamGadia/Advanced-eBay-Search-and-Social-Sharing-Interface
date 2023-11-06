@@ -1,6 +1,6 @@
 <div *ngIf="results.length > 0; else noResults" class="table-responsive container">
   <div class="text-end my-2">
-    <button class="btn btn-style text-end" (click)="test()" >Detail<span class="material-symbols-outlined icon-align">chevron_right</span></button>
+    <button class="btn btn-style text-end" (click)="test()" [disabled]="isItemIdNull()">Detail<span class="material-symbols-outlined icon-align">chevron_right</span></button>
   </div>
   <table  class="table table-striped table-dark table-hover">
     <thead>
@@ -17,7 +17,8 @@
     <tbody>
         <tbody>
           <!-- Loop through results if there are any -->
-          <tr *ngFor="let item of results | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i = index">
+          <tr *ngFor="let item of results | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i = index"
+          [ngClass]="{'table-light': item.itemId[0] === selectedItemId}">
             <th scope="row" class="index-width">{{ (currentPage - 1) * itemsPerPage + i + 1 }}</th>
             
             <!-- Image -->

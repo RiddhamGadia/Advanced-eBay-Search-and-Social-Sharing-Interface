@@ -98,6 +98,8 @@ export class AppComponent {
       zipOption: 'currentlocation',
     });
     this.filteredOptions = [...this.options];
+    this.productService.setItemId("");
+    this.productService.setwishlistItemId("");
     this.stopProgressBar();
     this.router.navigate(['/']);
   }
