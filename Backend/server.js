@@ -74,7 +74,7 @@ app.get('/search', (req, res) => {
   if (categoryId && categoryId !== '0') {
     apiUrl += `&categoryId=${encodeURIComponent(categoryId)}`;
   }
-  if (buyerpostalcode) {
+  if (buyerpostalcode && buyerpostalcode !== 'false') {
     apiUrl += `&buyerPostalCode=${encodeURIComponent(buyerpostalcode)}`;
   }
   let itemFilterIndex = 0;
@@ -82,21 +82,21 @@ app.get('/search', (req, res) => {
       apiUrl += `&itemFilter(${itemFilterIndex}).name=MaxDistance&itemFilter(${itemFilterIndex}).value=${encodeURIComponent(maxdistance)}`;
       itemFilterIndex++;
   }
-  if (freeshipping) {
+  if (freeshipping && freeshipping !== 'false') {
     apiUrl += `&itemFilter(${itemFilterIndex}).name=FreeShippingOnly&itemFilter(${itemFilterIndex}).value=true`;
     itemFilterIndex++;
   }
-  if (localpickup) {
+  if (localpickup && localpickup !== 'false') {
     apiUrl += `&itemFilter(${itemFilterIndex}).name=LocalPickupOnly&itemFilter(${itemFilterIndex}).value=true`;
     itemFilterIndex++;
   }
-  // Add Condition item filter if condition is provided. Here, we assume 'condition' could be an array.
-  if (condition && Array.isArray(condition)) {
-    const validConditions = condition.filter(cond => cond !== 'unspecified');
+  if (condition) { 
+    const conditionsArray = condition.includes(',') ? condition.split(',') : [condition];
 
-    if (validConditions.length > 0) {
+    // Assuming `apiUrl` and `itemFilterIndex` are already defined
+    if (conditionsArray.length > 0) {
         apiUrl += `&itemFilter(${itemFilterIndex}).name=Condition`;
-        validConditions.forEach((cond, idx) => {
+        conditionsArray.forEach((cond, idx) => {
             apiUrl += `&itemFilter(${itemFilterIndex}).value(${idx})=${encodeURIComponent(cond)}`;
         });
         itemFilterIndex++;
@@ -106,6 +106,7 @@ app.get('/search', (req, res) => {
   apiUrl += `&itemFilter(${itemFilterIndex}).name=HideDuplicateItems&itemFilter(${itemFilterIndex}).value=true`;
   itemFilterIndex++;
   apiUrl += `&outputSelector(0)=SellerInfo&outputSelector(1)=StoreInfo`;
+  console.log(apiUrl);
   axios
   .get(apiUrl)
   .then((response) => {

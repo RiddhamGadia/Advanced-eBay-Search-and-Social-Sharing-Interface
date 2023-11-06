@@ -23,7 +23,7 @@ export class SearchService {
       condition: this.convertCondition(criteria.conditionStates),
       categoryId: criteria.categoryId
     };
-    
+    console.log(transformedCriteria);
     return new Promise<void>((resolve, reject) => {
       this.http.get<any>(`http://localhost:3000/search`, { params: transformedCriteria }).subscribe(
         data => {
@@ -41,7 +41,6 @@ export class SearchService {
               ...item,
               isInWishlist: false,
             }));
-            console.log('search service', processedItems);
             this._results.next(processedItems);  // Update the BehaviorSubject with the new results
             resolve();  // Resolve the promise
           } else {
