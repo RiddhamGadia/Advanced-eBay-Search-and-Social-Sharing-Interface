@@ -44,5 +44,12 @@ export class SellerComponent {
       this.subscription.unsubscribe();
     }
   }
+  processFeedbackScore(feedbackScore: string | number): number {
+    return parseInt(feedbackScore as string);
+  }
+
+  removeShootingFromString(input: string): string {
+    return input.replace('Shooting', '');
+  }
 
 }

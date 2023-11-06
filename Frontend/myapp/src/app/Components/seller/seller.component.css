@@ -3,3 +3,17 @@
       width: 35%;
     }
   }
+.progress-width{
+  width: 30px !important;
+  height: 30px !important;
+}
+a{
+  color: #2b8083;
+  text-decoration: none;
+}
+.close-icon{
+  color: red;
+}
+.check-icon{
+  color: green;
+}

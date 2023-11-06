@@ -54,6 +54,9 @@ export class PhotosComponent {
       this.subscription.unsubscribe();
     }
   }
+  openImageInNewTab(url: string): void {
+    window.open(url, '_blank');
+  }
   
 
 }

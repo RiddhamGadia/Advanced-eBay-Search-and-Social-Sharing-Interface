@@ -1,24 +1,22 @@
 <div class="container mt-3">
     <!-- First Row -->
-    <div class="img-row-container">
-        <div *ngFor="let image of productImages?.slice(0,3)" class="img-container">
-            <img [src]="image?.link" class="img-fixed-width" alt="Product Image">
+    <div class="row">
+        <div *ngFor="let image of productImages?.slice(0,3)" class="col-md-4 div-margin">
+            <img [src]="image?.link" class="img-fixed-width" alt="Product Image" (click)="openImageInNewTab(image?.link)">
         </div>
     </div>
 
     <!-- Second Row -->
-    <div class="img-row-container">
-        <div *ngFor="let image of productImages?.slice(3,6)" class="img-container">
-            <img [src]="image?.link" class="img-fixed-width" alt="Product Image">
+    <div class="row">
+        <div *ngFor="let image of productImages?.slice(3,6)" class="col-md-4 div-margin">
+            <img [src]="image?.link" class="img-fixed-width" alt="Product Image" (click)="openImageInNewTab(image?.link)">
         </div>
     </div>
-    <div class="img-row-container">
-        <div></div>
-    </div>
     <!-- Third Row -->
-    <div class="img-row-container justify-content-end">
-        <div *ngFor="let image of productImages?.slice(6,8)" class="img-container">
-            <img [src]="image?.link" class="img-fixed-width" alt="Product Image">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div *ngFor="let image of productImages?.slice(6,8)" class="col-md-4 div-margin">
+            <img [src]="image?.link" class="img-fixed-width" alt="Product Image" (click)="openImageInNewTab(image?.link)">
         </div>
     </div>
 </div>
