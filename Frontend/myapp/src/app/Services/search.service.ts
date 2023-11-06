@@ -43,6 +43,7 @@ export class SearchService {
             this._results.next(processedItems);  // Update the BehaviorSubject with the new results
             resolve();  // Resolve the promise
           } else {
+            this._results.next([]);  // Update the BehaviorSubject with empty results
             resolve();  // Resolve the promise even if there are no results to avoid hanging
           }
         }
