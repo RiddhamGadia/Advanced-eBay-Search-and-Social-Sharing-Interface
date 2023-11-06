@@ -1,12 +1,19 @@
-.img-container {
-    height: auto;
-    display: inline-block;
-}
-.img-fluid {
-    display: block;
-    max-width: 100%;
-    height: auto;
-}
+.img-row-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows multiple rows */
+  }
+  
+  .img-container {
+    flex: 1; /* Each container will take equal width */
+    margin-bottom: 15px; /* Space between the rows */
+  }
+  
+  .img-fixed-width {
+    width: 100%; /* Full width of the parent container */
+    height: 100%; /* Full height of the parent container */
+    object-fit: contain; /* Keeps the aspect ratio without cropping */
+  }
+  
 img{
     border: 12px solid black;
 }

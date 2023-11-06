@@ -1,18 +1,24 @@
 <div class="container mt-3">
-    <div class="row">
-        <!-- First Row -->
-        <div *ngFor="let image of productImages?.slice(0,3)" class="col-4 img-container">
-            <img [src]="image?.link" class="img-fluid mb-3" alt="Product Image">
+    <!-- First Row -->
+    <div class="img-row-container">
+        <div *ngFor="let image of productImages?.slice(0,3)" class="img-container">
+            <img [src]="image?.link" class="img-fixed-width" alt="Product Image">
         </div>
+    </div>
 
-        <!-- Second Row -->
-        <div *ngFor="let image of productImages?.slice(3,6)" class="col-4 img-container">
-            <img [src]="image?.link" class="img-fluid mb-3" alt="Product Image">
+    <!-- Second Row -->
+    <div class="img-row-container">
+        <div *ngFor="let image of productImages?.slice(3,6)" class="img-container">
+            <img [src]="image?.link" class="img-fixed-width" alt="Product Image">
         </div>
-
-        <!-- Third Row -->
-        <div *ngFor="let image of productImages?.slice(6,8)" class="col-4 img-container">
-            <img [src]="image?.link" class="img-fluid mb-3" alt="Product Image">
+    </div>
+    <div class="img-row-container">
+        <div></div>
+    </div>
+    <!-- Third Row -->
+    <div class="img-row-container justify-content-end">
+        <div *ngFor="let image of productImages?.slice(6,8)" class="img-container">
+            <img [src]="image?.link" class="img-fixed-width" alt="Product Image">
         </div>
     </div>
 </div>

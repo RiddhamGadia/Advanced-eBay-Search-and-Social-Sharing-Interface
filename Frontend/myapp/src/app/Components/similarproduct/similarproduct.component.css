@@ -5,11 +5,8 @@
     width: 10%;
 }
 .img-format{
-    background-size: cover; /* adjust as needed */
-    background-position: center; 
     width: 150px; /* adjust as needed */
     height: 150px; /* adjust as needed */
-    background-repeat: no-repeat;
 }
 @media (min-width: 992px) {
     .reduced-width {

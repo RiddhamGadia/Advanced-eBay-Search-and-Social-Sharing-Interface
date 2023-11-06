@@ -18,10 +18,21 @@
               <td class="first-column d-sm-table-cell d-block col-width">Location</td>
               <td class="d-sm-table-cell d-block">{{ product.Location }}</td>
           </tr>
-          <tr *ngIf="product?.ReturnPolicy?.ReturnsAccepted && product?.ReturnPolicy?.ReturnsWithin">
-              <td class="first-column d-sm-table-cell d-block col-width">Return Policy (US)</td>
-              <td class="d-sm-table-cell d-block">{{ product.ReturnPolicy.ReturnsAccepted }} within {{ product.ReturnPolicy.ReturnsWithin }}</td>
+          <tr *ngIf="product?.ReturnPolicy?.ReturnsAccepted || product?.ReturnPolicy?.ReturnsWithin">
+            <td class="first-column d-sm-table-cell d-block col-width">Return Policy (US)</td>
+            <td class="d-sm-table-cell d-block">
+              <ng-container *ngIf="product?.ReturnPolicy?.ReturnsAccepted; else noReturnsAccepted">
+                {{ product.ReturnPolicy.ReturnsAccepted }}
+              </ng-container>
+              <ng-container *ngIf="product?.ReturnPolicy?.ReturnsWithin; else noReturnsWithin">
+                within {{ product.ReturnPolicy.ReturnsWithin }}
+              </ng-container>
+            </td>
           </tr>
+          
+          <ng-template #noReturnsAccepted>Not Accepted</ng-template>
+          <ng-template #noReturnsWithin>No Return Period</ng-template>
+          
           <ng-container *ngIf="product?.ItemSpecifics?.NameValueList">
               <tr *ngFor="let nameValue of product.ItemSpecifics.NameValueList">
                   <td class="first-column d-sm-table-cell d-block col-width">{{ nameValue.Name }}</td>
@@ -47,7 +58,10 @@
         <div id="carouselExample" class="carousel slide">
           <div class="carousel-inner">
             <div *ngFor="let picture of product?.PictureURL; let i = index" class="carousel-item" [ngClass]="{'active': i === 0}">
-              <img [src]="picture" class="d-block w-100 img-border" alt="Product Image">
+              <!-- Wrap the image with an anchor tag -->
+              <a [href]="picture" target="_blank">
+                <img [src]="picture" class="d-block w-100 img-border" alt="Product Image">
+              </a>
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -59,7 +73,7 @@
             <span class="visually-hidden">Next</span>
           </button>
         </div>
-      </div>
+      </div>      
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>

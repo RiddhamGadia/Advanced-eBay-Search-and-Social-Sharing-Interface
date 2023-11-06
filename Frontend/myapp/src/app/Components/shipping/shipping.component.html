@@ -36,31 +36,32 @@
         </tr>
 
           <!-- Display one day shipping -->
-          <tr *ngIf="item?.shippingInfo?.[0]?.oneDayShippingAvailable?.[0]">
-              <td class="d-sm-table-cell d-block col-width">One Day Shipping</td>
-              <td class="d-sm-table-cell d-block">
-                <span class = "material-symbols-outlined" [ngClass]="{
-                    'check-icon material-symbols-outlined': item.shippingInfo[0].oneDayShippingAvailable[0] === 'true', 
-                    'close-icon material-symbols-outlined': item.shippingInfo[0].oneDayShippingAvailable[0] !== 'true'
-                  }">
-                    {{ item.shippingInfo[0].oneDayShippingAvailable[0] === 'true' ? 'check' : 'close' }}
-                  </span>
-              </td>
-          </tr>
+        <tr *ngIf="item?.shippingInfo?.[0]?.oneDayShippingAvailable?.[0]">
+          <td class="d-sm-table-cell d-block col-width">One Day Shipping</td>
+          <td class="d-sm-table-cell d-block">
+            <span class="material-symbols-outlined" [ngClass]="{
+                'check-icon': item.shippingInfo[0].oneDayShippingAvailable[0] === 'true', 
+                'close-icon': item.shippingInfo[0].oneDayShippingAvailable[0] !== 'true'
+              }">
+                {{ item.shippingInfo[0].oneDayShippingAvailable[0] === 'true' ? 'check' : 'close' }}
+              </span>
+          </td>
+        </tr>
 
-          <!-- Display return accepted -->
-          <tr *ngIf="item?.returnsAccepted?.[0]">
-              <td class="d-sm-table-cell d-block col-width">Return Accepted</td>
-              <td class="d-sm-table-cell d-block">
-                <span [ngClass]="{
-                    'check-icon material-symbols-outlined': item.returnsAccepted[0] === 'true', 
-                    'close-icon material-symbols-outlined': item.returnsAccepted[0] !== 'true'
-                  }">
-                    {{ item.returnsAccepted[0] === 'true' ? 'check' : 'close' }}
-                  </span>
-              </td>
-              
-          </tr>
+        <!-- Display return accepted -->
+        <tr *ngIf="item?.returnsAccepted?.[0]">
+          <td class="d-sm-table-cell d-block col-width">Return Accepted</td>
+          <td class="d-sm-table-cell d-block">
+            <span class="material-symbols-outlined" [ngClass]="{
+                'check-icon': item.returnsAccepted[0] === 'true', 
+                'close-icon': item.returnsAccepted[0] !== 'true'
+              }">
+                {{ item.returnsAccepted[0] === 'true' ? 'check' : 'close' }}
+              </span>
+          </td>
+          
+        </tr>
+
         </tbody>
     </table>
 </div>

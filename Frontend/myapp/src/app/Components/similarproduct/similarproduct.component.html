@@ -31,10 +31,11 @@
                     <td>
                       <div class="row p-2">
                         <div class="col-md-2">
-                          <div [style.backgroundImage]="'url(' + product.imageURL + ')'"
+                          <!-- <div [style.backgroundImage]="'url(' + product.imageURL + ')'"
                              [attr.alt]="product.title"
                              class="img-fluid img-format">
-                          </div>
+                          </div> -->
+                          <img [src]="product.imageURL" [alt]="product.title" class="img-format">
                         </div>  
                         <div class="col-md-6 p-2">
                           <div class="title">
@@ -63,7 +64,9 @@
 </div>
   <div class="container">
     <ng-template #noResults>
-      <div class="text-center mt-4">No results found</div>
+      <div class="d-flex justify-content-center align-items-center container" style="height: 50px; background-color: #FFF3CD;"> <!-- Adjust height as needed -->
+        <span class="text-center" style="color: #90865f;">No Records.</span>
+      </div>
     </ng-template>
   </div>
   

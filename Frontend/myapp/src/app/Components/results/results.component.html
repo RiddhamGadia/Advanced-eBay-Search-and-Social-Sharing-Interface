@@ -23,10 +23,13 @@
             
             <!-- Image -->
             <td (click)="openImage(item.galleryURL[0] || 'N/A')">
-              <div [style.backgroundImage]="'url(' + (item.galleryURL[0] || '../../../assets/img-placeholder.JPG') + ')'"
+              <!-- <div [style.backgroundImage]="'url(' + (item.galleryURL[0] || '../../../assets/img-placeholder.JPG') + ')'"
                    [attr.alt]="item.title[0] || 'N/A'"
                    class="img-fluid img-format">
-              </div>
+              </div> -->
+              <img [src]="item.galleryURL[0] || '../../../assets/img-placeholder.JPG'"
+                [alt]="item.title[0] || 'N/A'"
+                class="img-format">
             </td>
           
             
