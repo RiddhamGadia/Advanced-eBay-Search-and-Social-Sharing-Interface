@@ -23,7 +23,6 @@ export class SearchService {
       condition: this.convertCondition(criteria.conditionStates),
       categoryId: criteria.categoryId
     };
-    console.log(transformedCriteria);
     return new Promise<void>((resolve, reject) => {
       this.http.get<any>(`http://localhost:3000/search`, { params: transformedCriteria }).subscribe(
         data => {

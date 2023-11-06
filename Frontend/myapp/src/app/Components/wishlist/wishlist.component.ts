@@ -55,7 +55,7 @@ export class WishlistComponent {
     window.open(url, '_blank');
   }
 
-  truncateTitle(title: string, maxLength: number = 50): string {
+  truncateTitle(title: string, maxLength: number = 35): string {
     if (title.length <= maxLength) {
       return title;
     }
