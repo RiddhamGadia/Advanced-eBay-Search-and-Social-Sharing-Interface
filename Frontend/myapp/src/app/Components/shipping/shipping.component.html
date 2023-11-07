@@ -4,7 +4,15 @@
           <!-- Display shipping cost -->
           <tr *ngIf="item?.shippingInfo?.[0]?.shippingServiceCost?.[0]?.__value__">
               <td class="d-sm-table-cell d-block col-width">Shipping Cost</td>
-              <td class="d-sm-table-cell d-block">{{ item.shippingInfo[0].shippingServiceCost[0].__value__ | currency:'USD' }}</td>
+              <td class="d-sm-table-cell d-block">
+                <ng-container *ngIf="item.shippingInfo[0].shippingServiceCost[0].__value__ === '0.0'; else cost">
+                  Free Shipping
+                </ng-container>
+                <ng-template #cost>
+                  {{ item.shippingInfo[0].shippingServiceCost[0].__value__ | currency:'USD' }}
+                </ng-template>
+              </td>
+              
           </tr>
 
           <!-- Display shipping locations -->
