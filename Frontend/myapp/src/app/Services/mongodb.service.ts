@@ -6,7 +6,7 @@ import { Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class MongodbService {
-  private baseUrl: string = 'http://localhost:3000'; // Update this if your server is on a different domain or port
+  private baseUrl: string = 'https://angularbackend-404409.wl.r.appspot.com'; // Update this if your server is on a different domain or port
   private _wishlistItems: Set<string> = new Set();
 
   constructor(private http: HttpClient) { }

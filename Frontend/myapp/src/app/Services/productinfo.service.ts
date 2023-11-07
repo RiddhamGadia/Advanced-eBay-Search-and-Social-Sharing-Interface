@@ -99,7 +99,7 @@ export class ProductinfoService {
     }
     try{
       return new Promise<void>((resolve, reject) => {
-        this.http.get(`http://localhost:3000/product`, { params: { itemid: itemId } }).subscribe(
+        this.http.get(`https://angularbackend-404409.wl.r.appspot.com/product`, { params: { itemid: itemId } }).subscribe(
           data => {
             if (data) {  // Assuming there will be some structure to verify here
               this._productDetail.next(data);  // Update the BehaviorSubject with the new product detail
@@ -125,7 +125,7 @@ export class ProductinfoService {
     }
     
     return new Promise<void>((resolve, reject) => {
-      this.http.get(`http://localhost:3000/product`, { params: { itemid: itemId } }).subscribe(
+      this.http.get(`https://angularbackend-404409.wl.r.appspot.com/product`, { params: { itemid: itemId } }).subscribe(
         data => {
           if (data) {  // Assuming there will be some structure to verify here
             this._productDetailWishlist.next(data);  // Update the BehaviorSubject with the new product detail
@@ -145,7 +145,7 @@ export class ProductinfoService {
     }
     
     return new Promise<void>((resolve, reject) => {
-      this.http.get<any[]>(`http://localhost:3000/getSimilarItems`, { params: { itemId: itemId } }).subscribe(
+      this.http.get<any[]>(`https://angularbackend-404409.wl.r.appspot.com/getSimilarItems`, { params: { itemId: itemId } }).subscribe(
         data => {
           if (data) {  // Check if data is an array (assuming similar items come as an array)
             this._similarItems.next(data);  // Update the BehaviorSubject with the new list of similar items
@@ -166,7 +166,7 @@ export class ProductinfoService {
     }
     
     return new Promise<void>((resolve, reject) => {
-      this.http.get<any[]>(`http://localhost:3000/getSimilarItems`, { params: { itemId: itemId } }).subscribe(
+      this.http.get<any[]>(`https://angularbackend-404409.wl.r.appspot.com/getSimilarItems`, { params: { itemId: itemId } }).subscribe(
         data => {
           if (data) {  // Check if data is an array (assuming similar items come as an array)
             this._similarItemsWishlist.next(data);  // Update the BehaviorSubject with the new list of similar items
@@ -186,7 +186,7 @@ export class ProductinfoService {
       return Promise.reject(new Error("Product Title is not available"));
     }
     return new Promise<void>((resolve, reject) => {
-      this.http.get<any[]>(`http://localhost:3000/getProductImages`, { params: { productTitle: productTitle } }).subscribe({
+      this.http.get<any[]>(`https://angularbackend-404409.wl.r.appspot.com/getProductImages`, { params: { productTitle: productTitle } }).subscribe({
         next: (data) => {
           if (data && Array.isArray(data)) {
             this._productImages.next(data);  // Update the BehaviorSubject with the new list of product images
@@ -208,7 +208,7 @@ export class ProductinfoService {
       return Promise.reject(new Error("Product Title is not available"));
     }
     return new Promise<void>((resolve, reject) => {
-      this.http.get<any[]>(`http://localhost:3000/getProductImages`, { params: { productTitle: productTitle } }).subscribe(
+      this.http.get<any[]>(`https://angularbackend-404409.wl.r.appspot.com/getProductImages`, { params: { productTitle: productTitle } }).subscribe(
         data => {
           if (data && Array.isArray(data)) {  // Check if data is an array (assuming images come as an array or similar structure)
             this._productImagesWishlist.next(data);  // Update the BehaviorSubject with the new list of product images

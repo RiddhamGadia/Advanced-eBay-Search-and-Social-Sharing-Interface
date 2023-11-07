@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const OAuthToken = require('./ebay_oauth_token');
 const { MongoClient, ServerApiVersion } = require('mongodb')
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 8080;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -270,6 +270,6 @@ app.get('/removeDoc', async (req, res) => {
 });
 
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
   });

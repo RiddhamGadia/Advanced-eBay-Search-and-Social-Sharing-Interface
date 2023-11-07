@@ -14,7 +14,7 @@ export class AutocompleteService {
   constructor(private http : HttpClient) { }
 
   getZipcodeAutoComplete(zipCode: string){
-    return this.http.get<string[]>(`http://localhost:3000/autocomplete?zipCode=${zipCode}`);
+    return this.http.get<string[]>(`https://angularbackend-404409.wl.r.appspot.com/autocomplete?zipCode=${zipCode}`);
   }
 
   getCurrentLocationZip(): Observable<string> {

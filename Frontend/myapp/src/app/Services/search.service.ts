@@ -24,7 +24,7 @@ export class SearchService {
       categoryId: criteria.categoryId
     };
     return new Promise<void>((resolve, reject) => {
-      this.http.get<any>(`http://localhost:3000/search`, { params: transformedCriteria }).subscribe(
+      this.http.get<any>(`https://angularbackend-404409.wl.r.appspot.com/search`, { params: transformedCriteria }).subscribe(
         data => {
           if (
             data &&
