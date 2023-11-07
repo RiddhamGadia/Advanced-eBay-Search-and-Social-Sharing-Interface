@@ -21,17 +21,21 @@
           <tr *ngIf="product?.ReturnPolicy?.ReturnsAccepted || product?.ReturnPolicy?.ReturnsWithin">
             <td class="first-column d-sm-table-cell d-block col-width">Return Policy (US)</td>
             <td class="d-sm-table-cell d-block">
-              <ng-container *ngIf="product?.ReturnPolicy?.ReturnsAccepted; else noReturnsAccepted">
+              <ng-container *ngIf="product?.ReturnPolicy?.ReturnsAccepted && product?.ReturnPolicy?.ReturnsWithin">
+                {{ product.ReturnPolicy.ReturnsAccepted }} within {{ product.ReturnPolicy.ReturnsWithin }}
+              </ng-container>
+              
+              <!-- Case b: If only ReturnsAccepted is available -->
+              <ng-container *ngIf="product?.ReturnPolicy?.ReturnsAccepted && !product?.ReturnPolicy?.ReturnsWithin">
                 {{ product.ReturnPolicy.ReturnsAccepted }}
               </ng-container>
-              <ng-container *ngIf="product?.ReturnPolicy?.ReturnsWithin; else noReturnsWithin">
+              
+              <!-- Case c: If only ReturnsWithin is available -->
+              <ng-container *ngIf="!product?.ReturnPolicy?.ReturnsAccepted && product?.ReturnPolicy?.ReturnsWithin">
                 within {{ product.ReturnPolicy.ReturnsWithin }}
               </ng-container>
             </td>
           </tr>
-          
-          <ng-template #noReturnsAccepted>Not Accepted</ng-template>
-          <ng-template #noReturnsWithin>No Return Period</ng-template>
           
           <ng-container *ngIf="product?.ItemSpecifics?.NameValueList">
               <tr *ngFor="let nameValue of product.ItemSpecifics.NameValueList">

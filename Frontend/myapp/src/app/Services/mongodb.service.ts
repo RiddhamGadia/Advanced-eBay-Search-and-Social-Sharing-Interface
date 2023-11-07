@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable} from 'rxjs';
 
 @Injectable({
@@ -12,7 +12,9 @@ export class MongodbService {
   constructor(private http: HttpClient) { }
 
   addDocument(document: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/addDoc`, document);
+    const myparams = {document: JSON.stringify(document)};
+    const headers = new HttpHeaders({'content-type': 'application/json'});
+    return this.http.get(`${this.baseUrl}/addDoc`, {params: myparams, headers: headers });
   }
 
   getAllDocuments(): Observable<any[]> {

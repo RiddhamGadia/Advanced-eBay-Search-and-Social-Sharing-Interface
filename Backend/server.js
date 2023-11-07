@@ -17,9 +17,10 @@ const client_id = 'RiddhamG-CSCI571A-PRD-472b2ae15-4dc4edc3';
 const client_secret = 'PRD-72b2ae1509dc-c457-4c34-bf06-41f2';
 const oauthToken = new OAuthToken(client_id, client_secret);
 
-const GOOGLE_CSE_API_KEY = 'AIzaSyD-cPzAO31rvcg0pmhAfYEj5FKpWu0kvb0'; // replace with your actual API key
-const GOOGLE_CSE_ID = '2088a7d00683e4899'; // replace with your custom search engine ID
-
+// const GOOGLE_CSE_API_KEY = 'AIzaSyD-cPzAO31rvcg0pmhAfYEj5FKpWu0kvb0'; // replace with your actual API key
+const GOOGLE_CSE_API_KEY = 'AIzaSyC1gbOgjR0Ln2ET6Twl7Awtj5lrkId0AtY';
+// const GOOGLE_CSE_ID = '2088a7d00683e4899'; // replace with your custom search engine ID
+const GOOGLE_CSE_ID = 'a191218403f5446b0';
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -181,8 +182,8 @@ app.get('/getProductImages', (req, res) => {
 });
 
 // Route to add a document to the 'wishlist' collection using POST
-app.post('/addDoc', async (req, res) => {
-  const document = req.body;
+app.get('/addDoc', async (req, res) => {
+  const document = JSON.parse(req.query.document);
   // console.log(document);
   if (!document || Object.keys(document).length === 0) {
       return res.status(400).json({ error: 'Please provide document fields.' });

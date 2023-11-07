@@ -97,20 +97,25 @@ export class ProductinfoService {
     if (!itemId) {
       return Promise.reject(new Error("Item ID is not available"));  // Reject the promise with an error
     }
-    
-    return new Promise<void>((resolve, reject) => {
-      this.http.get(`http://localhost:3000/product`, { params: { itemid: itemId } }).subscribe(
-        data => {
-          if (data) {  // Assuming there will be some structure to verify here
-            this._productDetail.next(data);  // Update the BehaviorSubject with the new product detail
-            resolve();  // Resolve the promise
-          } else {
-            this._productDetail.next(null);  // Update the BehaviorSubject with null
-            resolve();  // Resolve the promise even if data structure is not as expected
-          }
-        }
-      );
-    });
+    try{
+      return new Promise<void>((resolve, reject) => {
+        this.http.get(`http://localhost:3000/product`, { params: { itemid: itemId } }).subscribe(
+          data => {
+            if (data) {  // Assuming there will be some structure to verify here
+              this._productDetail.next(data);  // Update the BehaviorSubject with the new product detail
+              resolve();  // Resolve the promise
+            } else {
+              this._productDetail.next(null);  // Update the BehaviorSubject with null
+              resolve();  // Resolve the promise even if data structure is not as expected
+            }
+          },
+        );
+      });
+    }catch(err){
+      console.log(err);
+      this._productDetail.next(null);
+      return Promise.reject(new Error("Item ID is not available"));
+    }
   }
   getProductDetailsWishlist(): Promise<void> {
     const itemId = this.getwishlistItemId();
@@ -180,19 +185,25 @@ export class ProductinfoService {
     if (!productTitle) {
       return Promise.reject(new Error("Product Title is not available"));
     }
-    return new Promise<void>((resolve, reject) => {
-      this.http.get<any[]>(`http://localhost:3000/getProductImages`, { params: { productTitle: productTitle } }).subscribe(
-        data => {
-          if (data && Array.isArray(data)) {  // Check if data is an array (assuming images come as an array or similar structure)
-            this._productImages.next(data);  // Update the BehaviorSubject with the new list of product images
-            resolve();  // Resolve the promise
-          } else {
-            this._productImages.next([]);  // Update the BehaviorSubject with empty results
-            resolve();  // Resolve the promise even if data structure is not as expected
+    try{
+      return new Promise<void>((resolve, reject) => {
+        this.http.get<any[]>(`http://localhost:3000/getProductImages`, { params: { productTitle: productTitle } }).subscribe(
+          data => {
+            if (data && Array.isArray(data)) {  // Check if data is an array (assuming images come as an array or similar structure)
+              this._productImages.next(data);  // Update the BehaviorSubject with the new list of product images
+              resolve();  // Resolve the promise
+            } else {
+              this._productImages.next([]);  // Update the BehaviorSubject with empty results
+              resolve();  // Resolve the promise even if data structure is not as expected
+            }
           }
-        }
-      );
-    });
+        );
+      });
+    }catch(err){
+      console.log(err);
+      this._productImages.next([]);
+      return Promise.reject(new Error("Server error"));
+    }
   }
   getProductImagesWishlist(): Promise<void> {
     const productTitle = this.getwishlistProductTitle(); 
