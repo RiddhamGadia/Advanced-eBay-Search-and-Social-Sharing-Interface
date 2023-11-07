@@ -100,7 +100,7 @@
   </div>
 </div>
 <div class="container text-center">
-  <button type="button" class="btn px-3 my-3 me-3" routerLink="/results" routerLinkActive="active" [ngClass]="{'results-active': isActive()}">Results</button>
+  <button type="button" class="btn px-3 my-3 me-3" routerLink="/results" routerLinkActive="active" [ngClass]="{'results-active': !isWishlistRoute()}">Results</button>
   <button type="button" class="btn px-3 my-3" routerLink="/wishlist" routerLinkActive="active">Wishlist</button>
 </div>
 <div class="container">

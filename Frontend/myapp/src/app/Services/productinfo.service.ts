@@ -44,7 +44,6 @@ export class ProductinfoService {
   public facebookItemResults: any = null;
   public facebookItemWishlist: any = null;
 
-  public isActive: boolean = true;
 
   constructor(private http: HttpClient) { }
 
