@@ -36,7 +36,7 @@
           <ng-container *ngIf="product?.ItemSpecifics?.NameValueList">
               <tr *ngFor="let nameValue of product.ItemSpecifics.NameValueList">
                   <td class="first-column d-sm-table-cell d-block col-width">{{ nameValue.Name }}</td>
-                  <td class="d-sm-table-cell d-block">{{ nameValue.Value[0] }}</td>
+                  <td class="d-sm-table-cell d-block">{{ nameValue.Value }}</td>
                   <!-- Assuming Value is an array and you're interested in the first element -->
               </tr>
           </ng-container>
