@@ -27,3 +27,6 @@
     background-color: #212529 !important;
     color: white !important;
 }
+.txt-wrap{
+    text-wrap: nowrap;
+}

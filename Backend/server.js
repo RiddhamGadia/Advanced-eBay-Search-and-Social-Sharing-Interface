@@ -90,8 +90,10 @@ app.get('/search', (req, res) => {
     apiUrl += `&itemFilter(${itemFilterIndex}).name=LocalPickupOnly&itemFilter(${itemFilterIndex}).value=true`;
     itemFilterIndex++;
   }
+  // console.log('condition='+condition);
   if (condition) { 
-    const conditionsArray = condition.includes(',') ? condition.split(',') : [condition];
+    let conditionsArray = condition.includes(',') ? condition.split(',') : [condition];
+    conditionsArray = conditionsArray.filter(cond => cond.trim() !== 'Unspecified');
 
     // Assuming `apiUrl` and `itemFilterIndex` are already defined
     if (conditionsArray.length > 0) {
