@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, tap, BehaviorSubject } from 'rxjs';
+import { HttpClient} from '@angular/common/http';
+import { Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +26,8 @@ export class MongodbService {
   }
   
   removeDocument(itemId: string): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/removeDoc`, {
-      body: { itemId: itemId }
+    return this.http.get<any>(`${this.baseUrl}/removeDoc`, {
+      params: { itemId: itemId }
     });
   }
 

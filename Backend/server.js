@@ -243,8 +243,8 @@ app.get('/checkDoc', async (req, res) => {
   }
 });
 
-app.delete('/removeDoc', async (req, res) => {
-  const itemId = req.body.itemId; // Assuming you send itemId in the request body
+app.get('/removeDoc', async (req, res) => {
+  const itemId = req.query.itemId; // Assuming you send itemId in the request body
 
   if (!itemId) {
       return res.status(400).json({ error: 'Please provide itemId.' });
