@@ -19,3 +19,7 @@
 .img-border{
     border: 12px solid black;
 }
+.img-container{
+    height: 400px;
+    object-fit: contain;
+}

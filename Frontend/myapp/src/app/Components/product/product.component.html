@@ -60,7 +60,7 @@
             <div *ngFor="let picture of product?.PictureURL; let i = index" class="carousel-item" [ngClass]="{'active': i === 0}">
               <!-- Wrap the image with an anchor tag -->
               <a [href]="picture" target="_blank">
-                <img [src]="picture" class="d-block w-100 img-border" alt="Product Image">
+                <img [src]="picture" class="d-block w-100 img-border img-container" alt="Product Image">
               </a>
             </div>
           </div>
