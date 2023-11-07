@@ -114,7 +114,7 @@ export class SimilarproductComponent {
   }
   toggleDisplayLimit() {
     if (this.displayLimit === 5) {
-      this.displayLimit = 10; // Show all results
+      this.displayLimit = this.results.length; // Show all results
     } else {
       this.displayLimit = 5; // Show only first 10 results
     }
