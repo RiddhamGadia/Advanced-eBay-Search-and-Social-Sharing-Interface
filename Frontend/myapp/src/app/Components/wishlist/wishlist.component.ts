@@ -17,7 +17,9 @@ export class WishlistComponent {
   private subscription: Subscription = new Subscription();
   selectedItemId: any = "";
 
-  constructor(private mongodbService: MongodbService,private searchService: SearchService,private router: Router, private productService: ProductinfoService) { }
+  constructor(private mongodbService: MongodbService,private searchService: SearchService,private router: Router, private productService: ProductinfoService) { 
+    this.productService.setActiveRoute("wishlist");
+  }
 
   ngOnInit(): void {
     this.subscription=this.mongodbService.getAllDocuments().subscribe({
@@ -95,6 +97,7 @@ export class WishlistComponent {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+    this.productService.setActiveRoute("");
   }
   titleClick(item:any){
     console.log('Title clicked!',item.itemId[0]);
@@ -106,6 +109,6 @@ export class WishlistComponent {
     this.router.navigate(['/individual']);
   }
   isItemIdNull(): boolean {
-    return this.productService.getwishlistItemId() === "";
+    return this.productService.getwishlistItemId() === "" ;
   }
 }

@@ -8,9 +8,15 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 app.use(cors());
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  next();
+});
 app.use(bodyParser.json());
 
-const uri = "mongodb+srv://rgadia2000:mynewpassword@cluster0.w9fdote.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://rgadia2000:mynewpassword@cluster0.xtutyy3.mongodb.net/?retryWrites=true&w=majority";
 const APP_ID = 'RiddhamG-CSCI571A-PRD-472b2ae15-4dc4edc3';
 
 const client_id = 'RiddhamG-CSCI571A-PRD-472b2ae15-4dc4edc3';

@@ -19,6 +19,7 @@ export class AppComponent {
   currentZip: string = '';
   progressBarValue: number = 0; // Progress bar value
   showProgressBar: boolean = false;
+  isActive: boolean = true;
 
   constructor(private fb: FormBuilder, private service: AutocompleteService, private router: Router, private searchService: SearchService,private mongodbService: MongodbService,private productService: ProductinfoService) { }
 
@@ -27,6 +28,13 @@ export class AppComponent {
     this.handleZipOptionState(this.searchForm.get('zipOption')?.value);
     this.listenToZipChanges();
     this.fetchCurrentLocationZip();
+    this.productService.activeRoute$.subscribe((route)=>{
+      if(route === 'wishlist'){
+        this.isActive = false;
+      }else{
+        this.isActive = true;
+      }
+    })
   }
 
   private initializeForm(): void {

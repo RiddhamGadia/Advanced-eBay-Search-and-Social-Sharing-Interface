@@ -44,6 +44,12 @@ export class ProductinfoService {
   public facebookItemResults: any = null;
   public facebookItemWishlist: any = null;
 
+  private _activeRoute = new BehaviorSubject<string>('');
+  activeRoute$ = this._activeRoute.asObservable();
+  setActiveRoute(route: string) {
+    this._activeRoute.next(route);
+  }
+
 
   constructor(private http: HttpClient) { }
 

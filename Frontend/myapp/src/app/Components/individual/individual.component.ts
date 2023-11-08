@@ -15,7 +15,11 @@ export class IndividualComponent {
   item: any = null;
   title: any = "my text";
 
-  constructor(private router: Router,private productService: ProductinfoService, private mongodbService: MongodbService){}
+  constructor(private router: Router,private productService: ProductinfoService, private mongodbService: MongodbService){
+    if(this.productService.currentPage === "wishlist"){
+    this.productService.setActiveRoute("wishlist");
+    }
+  }
 
   ngOnInit(): void {
     console.log('Individual component loaded');
@@ -71,6 +75,7 @@ export class IndividualComponent {
     this.productService.detailButtonClickedResult = true;
     }else if(this.productService.currentPage === "wishlist"){
     this.productService.detailButtonClickedWishlist = true;
+    this.productService.setActiveRoute("");
     }
   }
 
@@ -90,6 +95,9 @@ export class IndividualComponent {
     } else {
       // console.log('In the ELSE block - Before Change:', item.isInWishlist);
       this.item.isInWishlist = !this.item.isInWishlist;
+      if(this.productService.currentPage === "wishlist"){
+        this.productService.setwishlistItemId("");
+      }
       // console.log('In the ELSE block - After Change:', item.isInWishlist);
       this.mongodbService.removeFromWishlist(this.item.itemId[0]);
       this.mongodbService.removeDocument(this.item.itemId[0]).subscribe({
